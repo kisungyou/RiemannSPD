@@ -1,0 +1,160 @@
+[
+    {
+        "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+        "file_last_write": 1655596205.0,
+        "definitions": [
+            {
+                "usr": "c:@F@airm_exp#$@N@arma@S@Mat>#d#S0_#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "airm_exp(arma::mat, arma::mat, double)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 9,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@airm_proj#$@N@arma@S@Mat>#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "airm_proj(arma::mat, arma::mat)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 16,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@airm_log#$@N@arma@S@Mat>#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "airm_log(arma::mat, arma::mat)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 21,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@airm_dist#$@N@arma@S@Mat>#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "airm_dist(arma::mat, arma::mat)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 27,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@lerm_dist#$@N@arma@S@Mat>#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "lerm_dist(arma::mat, arma::mat)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 34,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@chol_dist#$@N@arma@S@Mat>#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "chol_dist(arma::mat, arma::mat)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 39,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@euclid_mean#$@N@arma@S@Cube>#d#$@N@arma@S@Col>#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "euclid_mean(arma::cube, arma::vec)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 45,
+                "column": 12
+            },
+            {
+                "usr": "c:@F@chol_mean#$@N@arma@S@Cube>#d#$@N@arma@S@Col>#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "chol_mean(arma::cube, arma::vec)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 71,
+                "column": 12
+            },
+            {
+                "usr": "c:@F@lerm_mean#$@N@arma@S@Cube>#d#$@N@arma@S@Col>#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "lerm_mean(arma::cube, arma::vec)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 97,
+                "column": 12
+            },
+            {
+                "usr": "c:@F@airm_mean#$@N@arma@S@Cube>#d#$@N@arma@S@Col>#d#I#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "airm_mean(arma::cube, arma::vec, int, double)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
+                "line": 123,
+                "column": 12
+            }
+        ]
+    },
+    {
+        "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.h",
+        "file_last_write": 1655600478.0,
+        "definitions": []
+    },
+    {
+        "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
+        "file_last_write": 1655599136.0,
+        "definitions": [
+            {
+                "usr": "c:@F@aux_halfinv#&$@N@arma@S@Mat>#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "aux_halfinv(arma::mat &)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
+                "line": 20,
+                "column": 11
+            }
+        ]
+    },
+    {
+        "file": "/home/kisung/Desktop/RiemannSPD/src/src_selectors.cpp",
+        "file_last_write": 1655600377.0,
+        "definitions": [
+            {
+                "usr": "c:@F@selector_dist#$@N@arma@S@Mat>#d#S0_#$@N@std@N@__cxx11@S@basic_string>#C#$@N@std@S@char_traits>#C#$@N@std@S@allocator>#C#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "selector_dist(arma::mat, arma::mat, std::string)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_selectors.cpp",
+                "line": 16,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@selector_mean#&$@N@arma@S@Cube>#d#&$@N@arma@S@Col>#d#I#d#$@N@std@N@__cxx11@S@basic_string>#C#$@N@std@S@char_traits>#C#$@N@std@S@allocator>#C#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "selector_mean(arma::cube &, arma::vec &, int, double, std::string)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_selectors.cpp",
+                "line": 35,
+                "column": 12
+            },
+            {
+                "usr": "c:@F@src_pdist#&$@N@arma@S@Cube>#d#$@N@std@N@__cxx11@S@basic_string>#C#$@N@std@S@char_traits>#C#$@N@std@S@allocator>#C#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "src_pdist(arma::cube &, std::string)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_selectors.cpp",
+                "line": 68,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@src_pdist2#&$@N@arma@S@Cube>#d#S0_#$@N@std@N@__cxx11@S@basic_string>#C#$@N@std@S@char_traits>#C#$@N@std@S@allocator>#C#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "src_pdist2(arma::cube &, arma::cube &, std::string)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_selectors.cpp",
+                "line": 90,
+                "column": 11
+            }
+        ]
+    }
+]

@@ -1,0 +1,20 @@
+/home/kisung/Desktop/RiemannSPD/DESCRIPTION="DB0E8F8D"
+/home/kisung/Desktop/RiemannSPD/R/basic_pdist.R="BB8D564B"
+/home/kisung/Desktop/RiemannSPD/R/basic_pdist2.R="E2DB97E9"
+/home/kisung/Desktop/RiemannSPD/R/basic_wrap.R="B0B4A86B"
+<<<<<<< HEAD
+/home/kisung/Desktop/RiemannSPD/R/harmony_14N.R="7FD96102"
+=======
+>>>>>>> 532a96ab5b3b21a3f0e451e7aec2f70a58d8a334
+/home/kisung/Desktop/RiemannSPD/R/inference_mean.R="18A2DF5D"
+/home/kisung/Desktop/RiemannSPD/R/package-RiemannSPD.R="866F3A2F"
+/home/kisung/Desktop/RiemannSPD/R/utility_geometry.R="5A2922DF"
+/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp="DC9697CC"
+/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.h="4AC1732B"
+<<<<<<< HEAD
+/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp="E1E43A4C"
+=======
+/home/kisung/Desktop/RiemannSPD/src/src_basic_pdist.cpp="701F1895"
+/home/kisung/Desktop/RiemannSPD/src/src_inference_mean.cpp="3C9B7417"
+>>>>>>> 532a96ab5b3b21a3f0e451e7aec2f70a58d8a334
+/home/kisung/Desktop/RiemannSPD/src/src_selectors.cpp="AF0322C7"
