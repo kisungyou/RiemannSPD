@@ -1,0 +1,64 @@
+# themes:  https://bootswatch.com/ {flatly, united}
+# icons:   https://fontawesome.com/
+# pkgdown: https://pkgdown.r-lib.org/reference/index.html
+# search:  https://docsearch.algolia.com/
+#     docsearch:
+#     api_key:
+#      indexname: Riemann
+
+url: https://kisungyou.com/RiemannSPD
+
+destination: docs
+
+authors:
+  Kisung You:
+    href: https://kisungyou.com
+
+template:
+  bootstrap: 5
+  bslib:
+    border-radius: 0.5rem
+    btn-border-radius: 0.25rem
+  params:
+    bootswatch: flatly
+    ganalytics: UA-163713603-1
+
+home:
+  strip_header: true
+
+navbar:
+  title: "RiemannSPD"
+  left:
+    - text: "Functions"
+      href: reference/index.html
+    - text: "News"
+      href: news/index.html
+    - text: "Other Packages"
+      menu:
+        - text: "Riemann"
+          href: https://CRAN.R-project.org/package=Riemann
+        - text: "Rdimtools"
+          href: https://kisungyou.com/Rdimtools/
+  right:
+    - icon: fa-twitter
+      href: https://twitter.com/kisung_you
+    - icon: fa-github
+      href: https://github.com/kisungyou/RiemannSPD
+    - icon: fa-envelope
+      href: mailto:kisungyou@outlook.com
+
+reference:
+  - title: "Preparation"
+    contents:
+      - has_concept("prepare")
+  - title: "General Tasks"
+  - subtitle: "[1] Basic Operations"
+    contents:
+      - has_concept("basic")
+  - subtitle: "[2] Statistical Inference"
+    contents:
+      - has_concept("inference")
+  - title: "Applications"
+  - subtitle: "[1] Data Harmonization"
+    contents:
+      - has_concept("harmony")

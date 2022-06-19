@@ -1,17 +1,18 @@
+="======"
 ~%2FDesktop%2FRiemannSPD%2FDESCRIPTION="47507349"
 ~%2FDesktop%2FRiemannSPD%2FR%2Fauxiliary.R="401B17A5"
 ~%2FDesktop%2FRiemannSPD%2FR%2Fbasic_pdist.R="866B3A38"
 ~%2FDesktop%2FRiemannSPD%2FR%2Fbasic_pdist2.R="7EDA3687"
 ~%2FDesktop%2FRiemannSPD%2FR%2Fbasic_wrap.R="E436CA73"
-<<<<<<< HEAD
 ~%2FDesktop%2FRiemannSPD%2FR%2Fharmony_14N.R="B4CFA840"
-=======
->>>>>>> 532a96ab5b3b21a3f0e451e7aec2f70a58d8a334
 ~%2FDesktop%2FRiemannSPD%2FR%2Finference_mean.R="7EA9BF91"
 ~%2FDesktop%2FRiemannSPD%2FR%2Fpackage-RiemannSPD.R="75E9B8FC"
+~%2FDesktop%2FRiemannSPD%2FR%2Fprepare_geometry.R="C1BD7A40"
+~%2FDesktop%2FRiemannSPD%2FR%2Fprepare_wrap.R="B9EB6B10"
 ~%2FDesktop%2FRiemannSPD%2FR%2Ftest_halfinv.R="7F567929"
 ~%2FDesktop%2FRiemannSPD%2FR%2Futility_geometry.R="242ED091"
 ~%2FDesktop%2FRiemannSPD%2FRead-and-delete-me="327661A9"
+~%2FDesktop%2FRiemannSPD%2Fpkgdown%2F_pkgdown.yml="BA0465F9"
 ~%2FDesktop%2FRiemannSPD%2Fsrc%2Friemannian_spd.cpp="2B0D3E41"
 ~%2FDesktop%2FRiemannSPD%2Fsrc%2Friemannian_spd.h="07C5DAA0"
 ~%2FDesktop%2FRiemannSPD%2Fsrc%2Fsrc_AIRM.cpp="7576E96A"

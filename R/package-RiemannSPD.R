@@ -6,6 +6,7 @@
 #' 
 #' @docType package
 #' @name package-RiemannSPD
+#' @noRd
 #' @import Rdpack
 #' @importFrom Rcpp evalCpp
 #' @useDynLib RiemannSPD
