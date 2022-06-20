@@ -19,6 +19,12 @@ spd.pdist <- function(spd1, spd2, geometry){
     stop("* spd.pdist2 : 'spd2' is not a valid object of 'spd' class.")
   }
   par_geom = tolower(geometry)
+  
+  # geometry check
+  geom_avail = RiemannSPD::spd.geometry("spd.pdist2")
+  if (!(par_geom%*%geom_avail)){
+    stop(paste0("* spd.pdist2 : the provided geometry '",par_geom,"' is not currently available."))
+  }
 
   #------------------------------------------
   # COMPUTE & RETURN

@@ -19,6 +19,12 @@ spd.pdist <- function(spd, geometry, as.dist=FALSE){
   par_geom = tolower(geometry)
   par_dist = as.logical(as.dist)
   
+  # geometry check
+  geom_avail = RiemannSPD::spd.geometry("spd.pdist")
+  if (!(par_geom%*%geom_avail)){
+    stop(paste0("* spd.pdist : the provided geometry '",par_geom,"' is not currently available."))
+  }
+  
   #------------------------------------------
   # COMPUTE
   output = src_pdist(spd$data, par_geom)

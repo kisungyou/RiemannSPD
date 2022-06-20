@@ -49,6 +49,12 @@ spd.mean <- function(spd, geometry, ...){
     par_weight = rep(1/N, N)
   }
   
+  # geometry check
+  geom_avail = RiemannSPD::spd.geometry("spd.mean")
+  if (!(par_geom%*%geom_avail)){
+    stop(paste0("* spd.mean : the provided geometry '",par_geom,"' is not currently available."))
+  }
+  
   #------------------------------------------
   # COMPUTE & RETURN
   output = selector_mean(spd$data, par_weight, par_iter, par_thr, par_geom)

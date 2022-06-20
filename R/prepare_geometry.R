@@ -6,14 +6,21 @@
 #' @concept prepare
 #' @export
 spd.geometry <- function(fname){
+  
+  # MODIFY ---------------------------------------------------------------------
+  vec_dists  = c("airm","lerm","chol","euclid","wass")
+  vec_mean   = c("airm","lerm","chol","euclid","wass")
+  vec_median = c("lerm","chol","euclid")
+  
+  # ASSIGN ---------------------------------------------------------------------
   if (identical(tolower(fname), "spd.pdist")){
-    return(c("airm","lerm","chol","euclid","wass"))
+    return(vec_dists)
   } else if (identical(fname,   "spd.pdist2")){
-    return(c("airm","lerm","chol","euclid","wass"))
+    return(vec_dists)
   } else if (identical(fname, "spd.mean")){
-    return(c("airm","lerm","chol","euclid","wass"))
+    return(vec_mean)
   } else if (identical(fname, "spd.median")){
-    return(c("lerm","chol","euclid"))
+    return(vec_median)
   } else {
     stop("* spd.geometry : the given 'fname' is not provided with a variety of geometries.")
   }

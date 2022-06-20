@@ -42,6 +42,12 @@ spd.median <- function(spd, geometry, ...){
     par_weight = rep(1/N, N)
   }
   
+  # geometry check
+  geom_avail = RiemannSPD::spd.geometry("spd.median")
+  if (!(par_geom%*%geom_avail)){
+    stop(paste0("* spd.median : the provided geometry '",par_geom,"' is not currently available."))
+  }
+  
   #------------------------------------------
   # COMPUTE & RETURN
   output = selector_median(spd$data, par_weight, par_iter, par_thr, par_geom)
