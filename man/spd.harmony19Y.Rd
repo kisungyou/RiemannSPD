@@ -9,4 +9,7 @@ spd.harmony19Y(spdlist, ...)
 \description{
 Data Harmonization by Yair et al. (2019)
 }
+\references{
+\insertRef{yair_2019_harmony}{RiemannSPD}
+}
 \concept{harmony}

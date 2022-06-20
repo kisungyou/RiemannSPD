@@ -1,0 +1,26 @@
+.pkgenv <- new.env(parent = emptyenv())
+
+.onAttach <- function(...){
+  ## Retrieve Year Information
+  date <- date()
+  x <- regexpr("[0-9]{4}", date)
+  this.year <- substr(date, x[1], x[1] + attr(x, "match.length") - 1)
+  
+  # Retrieve Current Version
+  this.version = packageVersion("RiemannSPD")
+  
+  ## Print on Screen
+  packageStartupMessage("** ------------------------------------------------------- **")
+  packageStartupMessage("**  RiemannSPD || Learning with Data on the SPD Manifold")
+  packageStartupMessage("**")
+  packageStartupMessage("** Version    : ",this.version,"       (",this.year,")",sep="")
+  packageStartupMessage("** Maintainer : Kisung You  (kisungyou@outlook.com)")
+  packageStartupMessage("** Website    : https://kisungyou.com/RiemannSPD/")
+  packageStartupMessage("**")
+  packageStartupMessage("** Please share any bugs or suggestions to the maintainer.")
+  packageStartupMessage("** ------------------------------------------------------- **")
+}
+
+.onUnload <- function(libpath) {
+  library.dynam.unload("Riemann", libpath)
+}

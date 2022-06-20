@@ -6,7 +6,6 @@
 #' @concept prepare
 #' @export
 spd.geometry <- function(fname){
-  
   # MODIFY ---------------------------------------------------------------------
   vec_dists  = c("airm","lerm","chol","euclid","wass")
   vec_mean   = c("airm","lerm","chol","euclid","wass")
@@ -21,6 +20,10 @@ spd.geometry <- function(fname){
     return(vec_mean)
   } else if (identical(fname, "spd.median")){
     return(vec_median)
+  } else if (identical(fname, "spd.cmds")){
+    return(vec_dists)
+  } else if (identical(fname, "spd.kmedoids")){
+    return(vec_dists)
   } else {
     stop("* spd.geometry : the given 'fname' is not provided with a variety of geometries.")
   }

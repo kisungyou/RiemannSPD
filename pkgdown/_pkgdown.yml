@@ -57,6 +57,12 @@ reference:
   - title: "[2] Statistical Inference"
     contents:
       - has_concept("inference")
-  - title: "[1] Data Harmonization"
+  - title: "[3] Low-Dimensional Representation"
+    contents:
+      - has_concept("LDR")
+  - title: "[4] Clustering"
+    contents:
+      - has_concept("cluster")
+  - title: "[5] Data Harmonization"
     contents:
       - has_concept("harmony")

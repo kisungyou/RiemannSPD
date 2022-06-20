@@ -224,6 +224,39 @@
         ]
     },
     {
+        "file": "/home/kisung/Desktop/RiemannSPD/src/src_representation.cpp",
+        "file_last_write": 1655739339.0,
+        "definitions": [
+            {
+                "usr": "c:@F@engine_cmds#$@N@arma@S@Mat>#d#I#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "engine_cmds(arma::mat, int)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_representation.cpp",
+                "line": 15,
+                "column": 11
+            },
+            {
+                "usr": "c:@F@engine_stress#$@N@arma@S@Mat>#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "engine_stress(arma::mat, arma::mat)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_representation.cpp",
+                "line": 28,
+                "column": 8
+            },
+            {
+                "usr": "c:@F@cpp_representation_cmds#&$@N@arma@S@Mat>#d#I#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "cpp_representation_cmds(arma::mat &, int)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_representation.cpp",
+                "line": 44,
+                "column": 12
+            }
+        ]
+    },
+    {
         "file": "/home/kisung/Desktop/RiemannSPD/src/src_selectors.cpp",
         "file_last_write": 1655685344.0,
         "definitions": [

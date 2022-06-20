@@ -25,6 +25,10 @@ aux_expm <- function(X) {
     .Call('_RiemannSPD_aux_expm', PACKAGE = 'RiemannSPD', X)
 }
 
+cpp_representation_cmds <- function(pdist, ndim) {
+    .Call('_RiemannSPD_cpp_representation_cmds', PACKAGE = 'RiemannSPD', pdist, ndim)
+}
+
 selector_mean <- function(data, weight, maxiter, abstol, geom) {
     .Call('_RiemannSPD_selector_mean', PACKAGE = 'RiemannSPD', data, weight, maxiter, abstol, geom)
 }

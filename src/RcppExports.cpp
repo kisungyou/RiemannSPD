@@ -79,6 +79,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cpp_representation_cmds
+Rcpp::List cpp_representation_cmds(arma::mat& pdist, int ndim);
+RcppExport SEXP _RiemannSPD_cpp_representation_cmds(SEXP pdistSEXP, SEXP ndimSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type pdist(pdistSEXP);
+    Rcpp::traits::input_parameter< int >::type ndim(ndimSEXP);
+    rcpp_result_gen = Rcpp::wrap(cpp_representation_cmds(pdist, ndim));
+    return rcpp_result_gen;
+END_RCPP
+}
 // selector_mean
 Rcpp::List selector_mean(arma::cube& data, arma::vec& weight, int maxiter, double abstol, std::string geom);
 RcppExport SEXP _RiemannSPD_selector_mean(SEXP dataSEXP, SEXP weightSEXP, SEXP maxiterSEXP, SEXP abstolSEXP, SEXP geomSEXP) {
@@ -142,6 +154,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RiemannSPD_aux_3d_mean", (DL_FUNC) &_RiemannSPD_aux_3d_mean, 1},
     {"_RiemannSPD_aux_3d_transport", (DL_FUNC) &_RiemannSPD_aux_3d_transport, 3},
     {"_RiemannSPD_aux_expm", (DL_FUNC) &_RiemannSPD_aux_expm, 1},
+    {"_RiemannSPD_cpp_representation_cmds", (DL_FUNC) &_RiemannSPD_cpp_representation_cmds, 2},
     {"_RiemannSPD_selector_mean", (DL_FUNC) &_RiemannSPD_selector_mean, 5},
     {"_RiemannSPD_selector_median", (DL_FUNC) &_RiemannSPD_selector_median, 5},
     {"_RiemannSPD_src_pdist", (DL_FUNC) &_RiemannSPD_src_pdist, 2},

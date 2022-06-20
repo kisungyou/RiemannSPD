@@ -7,7 +7,10 @@
 #' @docType package
 #' @name package-RiemannSPD
 #' @noRd
+#' @import maotai
 #' @import Rdpack
+#' @importFrom utils packageVersion getFromNamespace
+#' @importFrom stats as.dist
 #' @importFrom Rcpp evalCpp
 #' @useDynLib RiemannSPD
 NULL

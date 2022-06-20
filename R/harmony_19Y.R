@@ -2,6 +2,13 @@
 #' 
 #' 
 #' 
+#' 
+#' 
+#' 
+#' 
+#' @references 
+#' \insertRef{yair_2019_harmony}{RiemannSPD}
+#' 
 #' @concept harmony
 #' @export
 spd.harmony19Y <- function(spdlist, ...){

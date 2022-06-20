@@ -19,13 +19,25 @@
     <loc>https://kisungyou.com/RiemannSPD/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://kisungyou.com/RiemannSPD/reference/spd.cmds.html</loc>
+  </url>
+  <url>
     <loc>https://kisungyou.com/RiemannSPD/reference/spd.geometry.html</loc>
   </url>
   <url>
     <loc>https://kisungyou.com/RiemannSPD/reference/spd.harmony14N.html</loc>
   </url>
   <url>
+    <loc>https://kisungyou.com/RiemannSPD/reference/spd.harmony19Y.html</loc>
+  </url>
+  <url>
+    <loc>https://kisungyou.com/RiemannSPD/reference/spd.harmony22S.html</loc>
+  </url>
+  <url>
     <loc>https://kisungyou.com/RiemannSPD/reference/spd.mean.html</loc>
+  </url>
+  <url>
+    <loc>https://kisungyou.com/RiemannSPD/reference/spd.median.html</loc>
   </url>
   <url>
     <loc>https://kisungyou.com/RiemannSPD/reference/spd.pdist.html</loc>
