@@ -9,7 +9,7 @@
 #' 
 #' @return a named list containing \describe{
 #' \item{transformed}{a length-\eqn{K} list of harmonized dataset wrapped as \code{"spd"} class.}
-#' \item{mean.class}{a length-\eqn{K} list of per-class/site mean.}
+#' \item{mean.local}{a length-\eqn{K} list of per-class/site mean.}
 #' }
 #' 
 #' @references 
@@ -69,7 +69,7 @@ spd.harmony14N <- function(spdlist, ...){
   #------------------------------------------
   # RETURN
   return(list(transformed=transformed,
-              mean.class=mean.class))
+              mean.local=mean.class))
 }
 
 

@@ -17,7 +17,7 @@ spd.harmony14N(spdlist, ...)
 \value{
 a named list containing \describe{
 \item{transformed}{a length-\eqn{K} list of harmonized dataset wrapped as \code{"spd"} class.}
-\item{mean.class}{a length-\eqn{K} list of per-class/site mean.}
+\item{mean.local}{a length-\eqn{K} list of per-class/site mean.}
 }
 }
 \description{

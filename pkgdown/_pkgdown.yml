@@ -21,7 +21,7 @@ template:
     btn-border-radius: 0.25rem
   params:
     bootswatch: flatly
-    ganalytics: UA-163713603-1
+#ganalytics: UA-163713603-1
 
 home:
   strip_header: true
@@ -51,14 +51,12 @@ reference:
   - title: "Preparation"
     contents:
       - has_concept("prepare")
-  - title: "General Tasks"
-  - subtitle: "[1] Basic Operations"
+  - title: "[1] Basic Operations"
     contents:
       - has_concept("basic")
-  - subtitle: "[2] Statistical Inference"
+  - title: "[2] Statistical Inference"
     contents:
       - has_concept("inference")
-  - title: "Applications"
-  - subtitle: "[1] Data Harmonization"
+  - title: "[1] Data Harmonization"
     contents:
       - has_concept("harmony")

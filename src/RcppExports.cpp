@@ -11,6 +11,28 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// aux_cube_expm
+arma::cube aux_cube_expm(arma::cube& data3d);
+RcppExport SEXP _RiemannSPD_aux_cube_expm(SEXP data3dSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::cube& >::type data3d(data3dSEXP);
+    rcpp_result_gen = Rcpp::wrap(aux_cube_expm(data3d));
+    return rcpp_result_gen;
+END_RCPP
+}
+// aux_cube_logm
+arma::cube aux_cube_logm(arma::cube& data3d);
+RcppExport SEXP _RiemannSPD_aux_cube_logm(SEXP data3dSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::cube& >::type data3d(data3dSEXP);
+    rcpp_result_gen = Rcpp::wrap(aux_cube_logm(data3d));
+    return rcpp_result_gen;
+END_RCPP
+}
 // aux_halfinv
 arma::mat aux_halfinv(arma::mat& X);
 RcppExport SEXP _RiemannSPD_aux_halfinv(SEXP XSEXP) {
@@ -19,6 +41,41 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
     rcpp_result_gen = Rcpp::wrap(aux_halfinv(X));
+    return rcpp_result_gen;
+END_RCPP
+}
+// aux_3d_mean
+arma::mat aux_3d_mean(arma::cube& data3d);
+RcppExport SEXP _RiemannSPD_aux_3d_mean(SEXP data3dSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::cube& >::type data3d(data3dSEXP);
+    rcpp_result_gen = Rcpp::wrap(aux_3d_mean(data3d));
+    return rcpp_result_gen;
+END_RCPP
+}
+// aux_3d_transport
+arma::cube aux_3d_transport(arma::mat& pt_start, arma::mat& pt_end, arma::cube& data3d);
+RcppExport SEXP _RiemannSPD_aux_3d_transport(SEXP pt_startSEXP, SEXP pt_endSEXP, SEXP data3dSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type pt_start(pt_startSEXP);
+    Rcpp::traits::input_parameter< arma::mat& >::type pt_end(pt_endSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type data3d(data3dSEXP);
+    rcpp_result_gen = Rcpp::wrap(aux_3d_transport(pt_start, pt_end, data3d));
+    return rcpp_result_gen;
+END_RCPP
+}
+// aux_expm
+arma::mat aux_expm(arma::mat& X);
+RcppExport SEXP _RiemannSPD_aux_expm(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(aux_expm(X));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -34,6 +91,21 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< double >::type abstol(abstolSEXP);
     Rcpp::traits::input_parameter< std::string >::type geom(geomSEXP);
     rcpp_result_gen = Rcpp::wrap(selector_mean(data, weight, maxiter, abstol, geom));
+    return rcpp_result_gen;
+END_RCPP
+}
+// selector_median
+Rcpp::List selector_median(arma::cube& data, arma::vec& weight, int maxiter, double abstol, std::string geom);
+RcppExport SEXP _RiemannSPD_selector_median(SEXP dataSEXP, SEXP weightSEXP, SEXP maxiterSEXP, SEXP abstolSEXP, SEXP geomSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::cube& >::type data(dataSEXP);
+    Rcpp::traits::input_parameter< arma::vec& >::type weight(weightSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    Rcpp::traits::input_parameter< double >::type abstol(abstolSEXP);
+    Rcpp::traits::input_parameter< std::string >::type geom(geomSEXP);
+    rcpp_result_gen = Rcpp::wrap(selector_median(data, weight, maxiter, abstol, geom));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -64,8 +136,14 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_RiemannSPD_aux_cube_expm", (DL_FUNC) &_RiemannSPD_aux_cube_expm, 1},
+    {"_RiemannSPD_aux_cube_logm", (DL_FUNC) &_RiemannSPD_aux_cube_logm, 1},
     {"_RiemannSPD_aux_halfinv", (DL_FUNC) &_RiemannSPD_aux_halfinv, 1},
+    {"_RiemannSPD_aux_3d_mean", (DL_FUNC) &_RiemannSPD_aux_3d_mean, 1},
+    {"_RiemannSPD_aux_3d_transport", (DL_FUNC) &_RiemannSPD_aux_3d_transport, 3},
+    {"_RiemannSPD_aux_expm", (DL_FUNC) &_RiemannSPD_aux_expm, 1},
     {"_RiemannSPD_selector_mean", (DL_FUNC) &_RiemannSPD_selector_mean, 5},
+    {"_RiemannSPD_selector_median", (DL_FUNC) &_RiemannSPD_selector_median, 5},
     {"_RiemannSPD_src_pdist", (DL_FUNC) &_RiemannSPD_src_pdist, 2},
     {"_RiemannSPD_src_pdist2", (DL_FUNC) &_RiemannSPD_src_pdist2, 3},
     {NULL, NULL, 0}

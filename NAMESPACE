@@ -2,7 +2,10 @@
 
 export(spd.geometry)
 export(spd.harmony14N)
+export(spd.harmony19Y)
+export(spd.harmony22S)
 export(spd.mean)
+export(spd.median)
 export(spd.pdist)
 export(spd.wrap)
 import(Rdpack)

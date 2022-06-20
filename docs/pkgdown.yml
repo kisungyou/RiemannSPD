@@ -2,7 +2,7 @@ pandoc: 2.17.1.1
 pkgdown: 2.0.4.9000
 pkgdown_sha: d8e324b82076d32846fa3bc8edf7a13154410641
 articles: {}
-last_built: 2022-06-19T19:33Z
+last_built: 2022-06-19T20:04Z
 urls:
   reference: https://kisungyou.com/RiemannSPD/reference
   article: https://kisungyou.com/RiemannSPD/articles

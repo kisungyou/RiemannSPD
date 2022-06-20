@@ -7,9 +7,9 @@ using namespace std;
 
 // =============================================================================
 // COLLECTION OF SELECTORS
-// (1) DIST   : airm, lerm, chol, euclid
-// (2) MEAN   : airm, lerm, chol, euclid
-// (3) MEDIAN :
+// (1) DIST   : airm, lerm, chol, euclid, wass
+// (2) MEAN   : airm, lerm, chol, euclid, wass
+// (3) MEDIAN : lerm, chol, euclid
 // =============================================================================
 
 // (1) DIST --------------------------------------------------------------------
@@ -23,6 +23,8 @@ double selector_dist(arma::mat x, arma::mat y, std::string geom){
     output = chol_dist(x,y);
   } else if (geom=="euclid"){
     output = arma::norm(x-y,"fro");
+  } else if (geom=="wass"){
+    output = wass_dist(x,y);
   } else {
     std::string err = "* RiemannSPD : distance measure under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -42,6 +44,8 @@ Rcpp::List selector_mean(arma::cube &data, arma::vec &weight, int maxiter, doubl
     output = chol_mean(data, weight);
   } else if (geom=="euclid"){
     output = euclid_mean(data, weight);
+  } else if (geom=="wass"){
+    output = wass_mean(data, weight, maxiter, abstol);
   } else {
     std::string err = "* RiemannSPD : Frechet mean computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -50,9 +54,22 @@ Rcpp::List selector_mean(arma::cube &data, arma::vec &weight, int maxiter, doubl
 }
 
 
-
-
-
+// (3) MEDIAN ------------------------------------------------------------------
+// [[Rcpp::export]]
+Rcpp::List selector_median(arma::cube &data, arma::vec &weight, int maxiter, double abstol, std::string geom){
+  Rcpp::List output;
+  if (geom=="euclid"){
+    output = euclid_median(data, weight, maxiter, abstol);
+  } else if (geom=="chol"){
+    output = chol_median(data, weight, maxiter, abstol);
+  } else if (geom=="lerm"){
+    output = lerm_median(data, weight, maxiter, abstol);
+  } else {
+    std::string err = "* RiemannSPD : Frechet median computation under '" + geom + "' geometry is not currently available.";
+    Rcpp::stop(err);
+  }
+  return(output);
+}
 
 
 
