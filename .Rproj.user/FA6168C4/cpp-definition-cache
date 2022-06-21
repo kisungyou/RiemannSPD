@@ -1,7 +1,7 @@
 [
     {
         "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
-        "file_last_write": 1655841756.0,
+        "file_last_write": 1655843918.0,
         "definitions": [
             {
                 "usr": "c:@F@general_weiszfeld#$@N@arma@S@Cube>#d#$@N@arma@S@Col>#d#I#d#",
@@ -157,21 +157,21 @@
                 "column": 12
             },
             {
-                "usr": "c:@F@logdet_dist#$@N@arma@S@Mat>#d#S0_#",
+                "usr": "c:@F@jbld_dist#$@N@arma@S@Mat>#d#S0_#",
                 "kind": 6,
                 "parent_name": "",
-                "name": "logdet_dist(arma::mat, arma::mat)",
+                "name": "jbld_dist(arma::mat, arma::mat)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
                 "line": 378,
                 "column": 8
             },
             {
-                "usr": "c:@F@logdet_mean#$@N@arma@S@Cube>#d#$@N@arma@S@Col>#d#I#d#",
+                "usr": "c:@F@jbld_mean#$@N@arma@S@Cube>#d#$@N@arma@S@Col>#d#I#d#",
                 "kind": 6,
                 "parent_name": "",
-                "name": "logdet_mean(arma::cube, arma::vec, int, double)",
+                "name": "jbld_mean(arma::cube, arma::vec, int, double)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
-                "line": 386,
+                "line": 384,
                 "column": 12
             },
             {
@@ -180,7 +180,7 @@
                 "parent_name": "",
                 "name": "sqrtm_dist(arma::mat, arma::mat)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
-                "line": 436,
+                "line": 434,
                 "column": 8
             },
             {
@@ -189,7 +189,7 @@
                 "parent_name": "",
                 "name": "sqrtm_mean(arma::cube, arma::vec)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
-                "line": 442,
+                "line": 440,
                 "column": 12
             },
             {
@@ -198,7 +198,7 @@
                 "parent_name": "",
                 "name": "bhat_dist(arma::mat, arma::mat)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
-                "line": 475,
+                "line": 473,
                 "column": 8
             },
             {
@@ -207,14 +207,14 @@
                 "parent_name": "",
                 "name": "sqrtm_median(arma::cube, arma::vec, int, double)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.cpp",
-                "line": 481,
+                "line": 479,
                 "column": 12
             }
         ]
     },
     {
         "file": "/home/kisung/Desktop/RiemannSPD/src/riemannian_spd.h",
-        "file_last_write": 1655841621.0,
+        "file_last_write": 1655843784.0,
         "definitions": []
     },
     {
@@ -330,7 +330,7 @@
     },
     {
         "file": "/home/kisung/Desktop/RiemannSPD/src/src_selectors.cpp",
-        "file_last_write": 1655841787.0,
+        "file_last_write": 1655843819.0,
         "definitions": [
             {
                 "usr": "c:@F@selector_dist#$@N@arma@S@Mat>#d#S0_#$@N@std@N@__cxx11@S@basic_string>#C#$@N@std@S@char_traits>#C#$@N@std@S@allocator>#C#",

@@ -375,15 +375,13 @@ Rcpp::List chol_median(arma::cube data, arma::vec weight, int maxiter, double ab
 }
 
 // square root of the divergence
-double logdet_dist(arma::mat x, arma::mat y){
+double jbld_dist(arma::mat x, arma::mat y){
   std::complex<double> term2 = arma::log_det(x*y);
   double J = arma::log_det_sympd((x+y)/2.0) - 0.5*term2.real();
   return(std::sqrt(J));
 }
 
-
-
-Rcpp::List logdet_mean(arma::cube data, arma::vec weight, int maxiter, double abstol){
+Rcpp::List jbld_mean(arma::cube data, arma::vec weight, int maxiter, double abstol){
   // prep
   int p = data.n_rows;
   int N = data.n_slices;
@@ -422,7 +420,7 @@ Rcpp::List logdet_mean(arma::cube data, arma::vec weight, int maxiter, double ab
   double dist2mean = 0.0;
   double out_variation = 0.0;
   for (int n=0; n<N; n++){
-    dist2mean = logdet_dist(mu_old, data.slice(n));
+    dist2mean = jbld_dist(mu_old, data.slice(n));
     out_variation += (dist2mean*dist2mean)*weight(n);
   }
   

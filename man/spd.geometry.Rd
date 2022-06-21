@@ -22,12 +22,12 @@ this is description.
 \item{\code{"bhat"}}{Bhattacharyya distance. not a metric.}
 \item{\code{"chol"}}{Cholesky. See \insertCite{wang_2004_ConstrainedVariationalPrinciple}{RiemannSPD}.}
 \item{\code{"euclid"}}{Euclidean}
-\item{\code{"lerm"}}{(\emph{Log-Euclidean Riemannian Metric}) - }
-\item{\code{"logdet"}}{(\emph{Jensen-Bregman Log-Determinant divergence}) -  
+\item{\code{"jbld"}}{(\emph{Jensen-Bregman Log-Determinant divergence}) -  
 jensen-bregman log-determinant devivergence. also called as S-divergence from 
 Sra. when used for distance computation, its square root is returned. Mean 
 computation by Chebbi & Moakher. Originally by Cherian 2011. See burgeoning-033.
 }
+\item{\code{"lerm"}}{(\emph{Log-Euclidean Riemannian Metric}) - }
 \item{\code{"sqrtm"}}{(\emph{Matrix Square Root}) - It was proposed in 
 \insertCite{dryden_2009_NonEuclideanStatisticsCovariance;textual}{RiemannSPD} without 
 much discussion at rigor. This geometry considers square root of matrices 

@@ -7,9 +7,9 @@ using namespace std;
 
 // =============================================================================
 // COLLECTION OF SELECTORS
-// (1) DIST   : airm, lerm, chol, euclid, wass, logdet, sqrtm, bhat
-// (2) MEAN   : airm, lerm, chol, euclid, wass, logdet, sqrtm
-// (3) MEDIAN :       lerm, chol, euclid,               sqrtm
+// (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat
+// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm
+// (3) MEDIAN :       lerm, chol, euclid,             sqrtm
 // =============================================================================
 
 // (1) DIST --------------------------------------------------------------------
@@ -26,7 +26,7 @@ double selector_dist(arma::mat x, arma::mat y, std::string geom){
   } else if (geom=="wass"){
     output = wass_dist(x,y);
   } else if (geom=="logdet"){
-    output = logdet_dist(x,y);
+    output = jbld_dist(x,y);
   } else if (geom=="sqrtm"){
     output = sqrtm_dist(x,y);
   } else if (geom=="bhat"){
@@ -52,8 +52,8 @@ Rcpp::List selector_mean(arma::cube &data, arma::vec &weight, int maxiter, doubl
     output = euclid_mean(data, weight);
   } else if (geom=="wass"){
     output = wass_mean(data, weight, maxiter, abstol);
-  } else if (geom=="logdet"){
-    output = logdet_mean(data, weight, maxiter, abstol);
+  } else if (geom=="jbld"){
+    output = jbld_mean(data, weight, maxiter, abstol);
   } else if (geom=="sqrtm"){
     output = sqrtm_mean(data, weight);
   } else {
