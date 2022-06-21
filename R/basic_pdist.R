@@ -1,7 +1,13 @@
 #' Pairwise distance
 #' 
 #' Given a collection of SPD matrices \eqn{X_1, \ldots, X_N}, compute all 
-#' pairwise distances under the designated geometry.
+#' pairwise distances under the designated geometry. Please see the following carefully;\describe{
+#' \item{Note 1. \code{geometry="logdet"}}{
+#' Since the square root of the Jensen-Bregman Log-Determinant divergence is 
+#' metric, we return the square root values instead of the original divergences 
+#' to be consistent with other \emph{metrics}.
+#' }
+#' }
 #' 
 #' @param spd a S3 \code{"spd"} class for \eqn{N} of \eqn{(p\times p)} SPD matrices.
 #' @param geometry (case-insensitive) name of supported geometry from \code{spd.geometry("spd.pdist")}.

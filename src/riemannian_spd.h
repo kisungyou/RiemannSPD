@@ -32,4 +32,16 @@ Rcpp::List wass_mean(arma::cube data, arma::vec weight, int maxiter, double abst
 Rcpp::List euclid_mean(arma::cube data, arma::vec weight);
 Rcpp::List euclid_median(arma::cube data, arma::vec weight, int maxiter, double abstol);
 
+// Geometry : logdet (Jensen-Bregman LogDet Divergence / S-Divergence)
+double     logdet_dist(arma::mat x, arma::mat y); // square root of the divergence
+Rcpp::List logdet_mean(arma::cube data, arma::vec weight, int maxiter, double abstol);
+
+// Geometry : sqrtm (matrix square root)
+double     sqrtm_dist(arma::mat x, arma::mat y);
+Rcpp::List sqrtm_mean(arma::cube data, arma::vec weight);
+Rcpp::List sqrtm_median(arma::cube data, arma::vec weight, int maxiter, double abstol);
+
+// Geometry : bhat (Bhattacharyya)
+double bhat_dist(arma::mat x, arma::mat y);
+
 #endif

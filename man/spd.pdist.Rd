@@ -18,7 +18,13 @@ a S3 \code{dist} object or \eqn{(N\times N)} symmetric matrix of pairwise distan
 }
 \description{
 Given a collection of SPD matrices \eqn{X_1, \ldots, X_N}, compute all 
-pairwise distances under the designated geometry.
+pairwise distances under the designated geometry. Please see the following carefully;\describe{
+\item{Note 1. \code{geometry="logdet"}}{
+Since the square root of the Jensen-Bregman Log-Determinant divergence is 
+metric, we return the square root values instead of the original divergences 
+to be consistent with other \emph{metrics}.
+}
+}
 }
 \examples{
 ## toy data

@@ -373,3 +373,135 @@ Rcpp::List chol_median(arma::cube data, arma::vec weight, int maxiter, double ab
   output["variation"] = out_variation;
   return(output);
 }
+
+// square root of the divergence
+double logdet_dist(arma::mat x, arma::mat y){
+  std::complex<double> term2 = arma::log_det(x*y);
+  double J = arma::log_det_sympd((x+y)/2.0) - 0.5*term2.real();
+  return(std::sqrt(J));
+}
+
+
+
+Rcpp::List logdet_mean(arma::cube data, arma::vec weight, int maxiter, double abstol){
+  // prep
+  int p = data.n_rows;
+  int N = data.n_slices;
+  
+  // stopping criterion
+  double stop_inc  = 10000.0;
+  int stop_counter = 0;
+  
+  // initialization
+  // Chebbi & Moaker : their arithmetic mean is enough
+  arma::mat mu_old = arma::mean(data, 2);
+  arma::mat mu_new(p,p,fill::zeros);
+  arma::mat tmp_fixed(p,p,fill::zeros);
+  
+  // iterate
+  while (stop_inc > abstol){
+    
+    tmp_fixed.fill(0.0);
+    for (int n=0; n<N; n++){
+      tmp_fixed += weight(n)* arma::inv_sympd((data.slice(n)+mu_old)/2.0);
+    }
+    mu_new = arma::inv_sympd(tmp_fixed);
+    
+    // update
+    stop_inc = arma::norm(mu_old-mu_new,"fro");
+    mu_old   = mu_new;
+    
+    stop_counter += 1;
+    if (stop_counter >= maxiter){
+      break;
+    }
+  }
+  
+  
+  // compute the variation
+  double dist2mean = 0.0;
+  double out_variation = 0.0;
+  for (int n=0; n<N; n++){
+    dist2mean = logdet_dist(mu_old, data.slice(n));
+    out_variation += (dist2mean*dist2mean)*weight(n);
+  }
+  
+  // wrap & return
+  Rcpp::List output;
+  output["mean"] = mu_old;
+  output["variation"] = out_variation;
+  return(output);
+}
+
+double sqrtm_dist(arma::mat x, arma::mat y){
+  arma::mat xx = arma::sqrtmat_sympd(x);
+  arma::mat yy = arma::sqrtmat_sympd(y);
+  return(arma::norm(xx-yy,"fro"));
+}
+
+Rcpp::List sqrtm_mean(arma::cube data, arma::vec weight){
+  // prep
+  int p = data.n_rows;
+  int N = data.n_slices;
+  
+  // sqrtm-transform & compute
+  arma::cube sqrtm_3d(p,p,N,fill::zeros);
+  for (int n=0; n<N; n++){
+    sqrtm_3d.slice(n) = arma::sqrtmat_sympd(data.slice(n));
+  }
+  
+  // compute mean 
+  arma::mat sqrtm_mean(p,p,fill::zeros);
+  for (int n=0; n<N; n++){
+    sqrtm_mean += weight(n)*sqrtm_3d.slice(n);
+  }
+  arma::mat output_mean = sqrtm_mean*sqrtm_mean;
+  
+  // compute variation
+  double distval = 0.0;
+  double variation = 0.0;
+  for (int n=0; n<N; n++){
+    distval = arma::norm(sqrtm_mean-sqrtm_3d.slice(n),"fro");
+    variation += (distval*distval)*weight(n);
+  }
+  
+  // wrap & return
+  Rcpp::List output;
+  output["mean"] = output_mean;
+  output["variation"] = variation;
+  return(output);
+}
+
+double bhat_dist(arma::mat x, arma::mat y){
+  arma::mat z = (x+y)/2.0;
+  return(std::log(arma::det(z)/std::sqrt(arma::det(x)*arma::det(y)))*0.5);
+}
+
+
+Rcpp::List sqrtm_median(arma::cube data, arma::vec weight, int maxiter, double abstol){
+  // prep
+  int p = data.n_rows;
+  int N = data.n_slices;
+  
+  // sqrtm transformation
+  arma::cube sqrt3d(p,p,N,fill::zeros);
+  for (int n=0; n<N; n++){
+    sqrt3d.slice(n) = arma::sqrtmat_sympd(data.slice(n));
+  }
+  
+  // compute the median using the general algorithm
+  arma::mat median_sqrtm  = general_weiszfeld(sqrt3d, weight, maxiter, abstol);
+  arma::mat median_output = median_sqrtm*median_sqrtm;
+  
+  // compute the variation
+  double out_variation = 0.0;
+  for (int n=0; n<N; n++){
+    out_variation += arma::norm(sqrt3d.slice(n)-median_sqrtm, "fro")*weight(n);
+  }
+  
+  // wrap & return
+  Rcpp::List output;
+  output["median"] = median_output;
+  output["variation"] = out_variation;
+  return(output);
+}

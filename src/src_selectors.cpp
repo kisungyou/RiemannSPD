@@ -7,9 +7,9 @@ using namespace std;
 
 // =============================================================================
 // COLLECTION OF SELECTORS
-// (1) DIST   : airm, lerm, chol, euclid, wass
-// (2) MEAN   : airm, lerm, chol, euclid, wass
-// (3) MEDIAN : lerm, chol, euclid
+// (1) DIST   : airm, lerm, chol, euclid, wass, logdet, sqrtm, bhat
+// (2) MEAN   : airm, lerm, chol, euclid, wass, logdet, sqrtm
+// (3) MEDIAN :       lerm, chol, euclid,               sqrtm
 // =============================================================================
 
 // (1) DIST --------------------------------------------------------------------
@@ -25,6 +25,12 @@ double selector_dist(arma::mat x, arma::mat y, std::string geom){
     output = arma::norm(x-y,"fro");
   } else if (geom=="wass"){
     output = wass_dist(x,y);
+  } else if (geom=="logdet"){
+    output = logdet_dist(x,y);
+  } else if (geom=="sqrtm"){
+    output = sqrtm_dist(x,y);
+  } else if (geom=="bhat"){
+    output = bhat_dist(x,y);
   } else {
     std::string err = "* RiemannSPD : distance measure under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -46,6 +52,10 @@ Rcpp::List selector_mean(arma::cube &data, arma::vec &weight, int maxiter, doubl
     output = euclid_mean(data, weight);
   } else if (geom=="wass"){
     output = wass_mean(data, weight, maxiter, abstol);
+  } else if (geom=="logdet"){
+    output = logdet_mean(data, weight, maxiter, abstol);
+  } else if (geom=="sqrtm"){
+    output = sqrtm_mean(data, weight);
   } else {
     std::string err = "* RiemannSPD : Frechet mean computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -64,20 +74,14 @@ Rcpp::List selector_median(arma::cube &data, arma::vec &weight, int maxiter, dou
     output = chol_median(data, weight, maxiter, abstol);
   } else if (geom=="lerm"){
     output = lerm_median(data, weight, maxiter, abstol);
+  } else if (geom=="sqrtm"){
+    output = sqrtm_median(data, weight, maxiter, abstol);
   } else {
     std::string err = "* RiemannSPD : Frechet median computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
   }
   return(output);
 }
-
-
-
-
-
-
-
-
 
 
 // -------- forget about the below, they are done --------------
@@ -88,18 +92,60 @@ arma::mat src_pdist(arma::cube &data, std::string geometry){
   int N = data.n_slices;
   
   // compute
-  arma::mat mat1(p,p,fill::zeros);
-  arma::mat mat2(p,p,fill::zeros);
-  
   arma::mat output(N,N,fill::zeros);
-  for (int i=0; i<(N-1); i++){
-    mat1 = data.slice(i);
-    for (int j=(i+1); j<N; j++){
-      mat2 = data.slice(j);
-      
-      output(i,j) = selector_dist(mat1, mat2, geometry);
-      output(j,i) = output(i,j);
+  if (geometry=="bhat"){           // special case : BHAT
+    arma::vec data_det(N,fill::zeros);
+    for (int n=0; n<N; n++){
+      data_det(n) = arma::det(data.slice(n));
     }
+    arma::mat mat_avg(p,p,fill::zeros);
+    for (int i=0; i<(N-1); i++){
+      for (int j=(i+1); j<N; j++){
+        mat_avg = (data.slice(i)+data.slice(j))/2.0;
+        output(i,j) = (arma::log_det_sympd(mat_avg) - 0.5*std::log(data_det(i)*data_det(j)))*0.5;
+        output(j,i) = output(i,j);
+      }
+    }
+  } else if (geometry=="lerm"){    // special case : LERM
+    arma::cube data_trf(p,p,N,fill::zeros);
+    for (int n=0; n<N; n++){
+      data_trf.slice(n) = arma::logmat_sympd(data.slice(n));
+    }
+    for (int i=0; i<(N-1); i++){
+      for (int j=(i+1); j<N; j++){
+        output(i,j) = arma::norm(data_trf.slice(i)-data_trf.slice(j),"fro");
+        output(j,i) = output(i,j);
+      }
+    }
+  } else if (geometry=="chol"){    // special case : CHOL
+    arma::cube data_trf(p,p,N,fill::zeros);
+    for (int n=0; n<N; n++){
+      data_trf.slice(n) = arma::chol(data.slice(n));
+    }
+    for (int i=0; i<(N-1); i++){
+      for (int j=(i+1); j<N; j++){
+        output(i,j) = arma::norm(data_trf.slice(i)-data_trf.slice(j),"fro");
+        output(j,i) = output(i,j);
+      }
+    }
+  } else if (geometry=="sqrtm"){   // special case : SQRTM
+    arma::cube data_trf(p,p,N,fill::zeros);
+    for (int n=0; n<N; n++){
+      data_trf.slice(n) = arma::sqrtmat_sympd(data.slice(n));
+    }
+    for (int i=0; i<(N-1); i++){
+      for (int j=(i+1); j<N; j++){
+        output(i,j) = arma::norm(data_trf.slice(i)-data_trf.slice(j),"fro");
+        output(j,i) = output(i,j);
+      }
+    }
+  } else {                         // general cases
+    for (int i=0; i<(N-1); i++){
+      for (int j=(i+1); j<N; j++){
+        output(i,j) = selector_dist(data.slice(i), data.slice(j), geometry);
+        output(j,i) = output(i,j);
+      }
+    } 
   }
   return(output);
 }
@@ -111,17 +157,78 @@ arma::mat src_pdist2(arma::cube &data1, arma::cube &data2, std::string geometry)
   int N = data2.n_slices;
   
   // compute
-  arma::mat mat1(p,p,fill::zeros);
-  arma::mat mat2(p,p,fill::zeros);
-  
   arma::mat output(M,N,fill::zeros);
-  for (int m=0; m<M; m++){
-    mat1 = data1.slice(m);
-    for (int n=0; n<N; n++){
-      mat2 = data2.slice(n);
-      
-      output(m,n) = selector_dist(mat1, mat2, geometry);
+  if (geometry=="lerm"){         // special case : LERM
+    arma::cube trf1(p,p,M,fill::zeros);
+    arma::cube trf2(p,p,N,fill::zeros);
+    
+    for (int m=0; m<M; m++){
+      trf1.slice(m) = arma::logmat_sympd(data1.slice(m));
     }
+    for (int n=0; n<N; n++){
+      trf2.slice(n) = arma::logmat_sympd(data2.slice(n));
+    }
+    
+    for (int m=0; m<M; m++){
+      for (int n=0; n<N; n++){
+        output(m,n) = arma::norm(trf1.slice(m)-trf2.slice(n), "fro");
+      }
+    }
+  } else if (geometry=="chol"){  // special case : CHOL
+    arma::cube trf1(p,p,M,fill::zeros);
+    arma::cube trf2(p,p,N,fill::zeros);
+    
+    for (int m=0; m<M; m++){
+      trf1.slice(m) = arma::chol(data1.slice(m));
+    }
+    for (int n=0; n<N; n++){
+      trf2.slice(n) = arma::chol(data2.slice(n));
+    }
+    
+    for (int m=0; m<M; m++){
+      for (int n=0; n<N; n++){
+        output(m,n) = arma::norm(trf1.slice(m)-trf2.slice(n), "fro");
+      }
+    }
+  } else if (geometry=="sqrtm"){ // special case : matrix square root
+    arma::cube trf1(p,p,M,fill::zeros);
+    arma::cube trf2(p,p,N,fill::zeros);
+    
+    for (int m=0; m<M; m++){
+      trf1.slice(m) = arma::sqrtmat_sympd(data1.slice(m));
+    }
+    for (int n=0; n<N; n++){
+      trf2.slice(n) = arma::sqrtmat_sympd(data2.slice(n));
+    }
+    
+    for (int m=0; m<M; m++){
+      for (int n=0; n<N; n++){
+        output(m,n) = arma::norm(trf1.slice(m)-trf2.slice(n), "fro");
+      }
+    }
+  } else if (geometry=="bhat"){  // special case : BHAT
+    arma::vec vec_det1(M,fill::zeros);
+    arma::vec vec_det2(N,fill::zeros);
+    for (int m=0; m<M; m++){
+      vec_det1(m) = std::real(arma::det(data1.slice(m)));
+    }
+    for (int n=0; n<N; n++){
+      vec_det2(n) = std::real(arma::det(data2.slice(n)));
+    }
+    
+    arma::mat mat_avg(p,p,fill::zeros);
+    for (int m=0; m<M; m++){
+      for (int n=0; n<N; n++){
+        mat_avg     = (data1.slice(m)+data2.slice(n))/2.0;
+        output(m,n) = (arma::log_det_sympd(mat_avg) - 0.5*std::log(vec_det1(m)*vec_det2(n)))*0.5;
+      }
+    }
+  } else {                       // general cases
+    for (int m=0; m<M; m++){
+      for (int n=0; n<N; n++){
+        output(m,n) = selector_dist(data1.slice(m), data2.slice(n), geometry);
+      }
+    } 
   }
   return(output);
 }

@@ -19,7 +19,13 @@ an \eqn{(M\times N)} matrix of distances.
 \description{
 Given two sets of SPD matrices \eqn{X_1, \ldots, X_M} and \eqn{Y_1, \ldots, Y_N}, 
 compute all pairwise distances across two collections of observations under 
-the designated geometry.
+the designated geometry. Please see the following carefully;\describe{
+\item{Note 1. \code{geometry="logdet"}}{
+Since the square root of the Jensen-Bregman Log-Determinant divergence is 
+metric, we return the square root values instead of the original divergences 
+to be consistent with other \emph{metrics}.
+}
+}
 }
 \examples{
 \donttest{

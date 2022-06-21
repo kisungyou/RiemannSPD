@@ -73,10 +73,10 @@ spd.mean <- function(spd, geometry, ...){
 # meanAIRM = spd.mean(spdobj, "airm")
 # meanLERM = spd.mean(spdobj, "lerm")
 # meanEUCL = spd.mean(spdobj, "euclid")
-# meanCHOL = spd.mean(spdobj, "chol")
+# meanLDET = spd.mean(spdobj, "logdet")
 # 
 # par(mfrow=c(2,2), pty="s")
 # image(meanAIRM$mean, main=paste0("AIRM:",round(meanAIRM$variation,3)))
 # image(meanLERM$mean, main=paste0("LERM:",round(meanLERM$variation,3)))
 # image(meanEUCL$mean, main=paste0("EUCL:",round(meanEUCL$variation,3)))
-# image(meanCHOL$mean, main=paste0("CHOL:",round(meanCHOL$variation,3)))
+# image(meanLDET$mean, main=paste0("LDET:",round(meanLDET$variation,3)))

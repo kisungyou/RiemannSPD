@@ -2,11 +2,42 @@
 % Please edit documentation in R/prepare_geometry.R
 \name{spd.geometry}
 \alias{spd.geometry}
-\title{Show available geometries for a chosen function}
+\title{Show available geometries}
 \usage{
 spd.geometry(fname)
 }
+\arguments{
+\item{fname}{a function name for which the list of available geometries should be presented.}
+}
+\value{
+a vector of geometry names that are available for the given function.
+}
 \description{
-Show available geometries for a chosen function
+this is description.
+}
+\section{Available Geometries}{
+
+\describe{
+\item{\code{"airm"}}{(\emph{Affine-Invariant Riemannian Metric}) - .}
+\item{\code{"bhat"}}{Bhattacharyya distance. not a metric.}
+\item{\code{"chol"}}{Cholesky. See \insertCite{wang_2004_ConstrainedVariationalPrinciple}{RiemannSPD}.}
+\item{\code{"euclid"}}{Euclidean}
+\item{\code{"lerm"}}{(\emph{Log-Euclidean Riemannian Metric}) - }
+\item{\code{"logdet"}}{(\emph{Jensen-Bregman Log-Determinant divergence}) -  
+jensen-bregman log-determinant devivergence. also called as S-divergence from 
+Sra. when used for distance computation, its square root is returned. Mean 
+computation by Chebbi & Moakher. Originally by Cherian 2011. See burgeoning-033.
+}
+\item{\code{"sqrtm"}}{(\emph{Matrix Square Root}) - It was proposed in 
+\insertCite{dryden_2009_NonEuclideanStatisticsCovariance;textual}{RiemannSPD} without 
+much discussion at rigor. This geometry considers square root of matrices 
+and measures distances of those under the Frobenius norm.
+}
+\item{\code{"wass"}}{2-wasserstein.}
+}
+}
+
+\references{
+\insertAllCited{}
 }
 \concept{prepare}
