@@ -1,7 +1,7 @@
 #' Fréchet mean and variation
 #' 
 #' 
-#' @param spd a S3 \code{"spd"} class for  \eqn{N} SPD matrices.
+#' @param spd a S3 \code{"spd"} class for \eqn{N} of \eqn{(p\times p)} SPD matrices
 #' @param geometry (case-insensitive) name of supported geometry from \code{spd.geometry("spd.mean")}.
 #' @param ... extra parameters including \describe{
 #' \item{weight}{a length-\eqn{N} vector of weights that sum to 1 (default: uniform).}
@@ -51,7 +51,7 @@ spd.mean <- function(spd, geometry, ...){
   
   # geometry check
   geom_avail = RiemannSPD::spd.geometry("spd.mean")
-  if (!(par_geom%*%geom_avail)){
+  if (!(par_geom%in%geom_avail)){
     stop(paste0("* spd.mean : the provided geometry '",par_geom,"' is not currently available."))
   }
   

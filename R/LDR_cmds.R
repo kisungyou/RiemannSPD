@@ -5,7 +5,7 @@
 #' in Euclidean space. The computation is based on pairwise dissimilarity, which is 
 #' controlled by the \code{geometry} parameter. 
 #' 
-#' @param spd a S3 \code{"spd"} class for \eqn{N} SPD matrices.
+#' @param spd a S3 \code{"spd"} class for \eqn{N} of \eqn{(p\times p)} SPD matrices.
 #' @param geometry (case-insensitive) name of supported geometry from \code{spd.geometry("spd.cmds")}.
 #' @param ndim an integer-valued target dimension (default: 2).
 #' 
@@ -13,8 +13,6 @@
 #' \item{embed}{an \eqn{(N\times ndim)} matrix whose rows are embedded observations.}
 #' \item{stress}{discrepancy between embedded and original distances as a measure of error.}
 #' }
-#' 
-#' 
 #' 
 #' @references 
 #' \insertRef{torgerson_multidimensional_1952a}{RiemannSPD}

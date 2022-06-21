@@ -165,7 +165,7 @@
     },
     {
         "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
-        "file_last_write": 1655678284.0,
+        "file_last_write": 1655772330.0,
         "definitions": [
             {
                 "usr": "c:@F@aux_cube_expm#&$@N@arma@S@Cube>#d#",
@@ -173,7 +173,7 @@
                 "parent_name": "",
                 "name": "aux_cube_expm(arma::cube &)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
-                "line": 20,
+                "line": 22,
                 "column": 12
             },
             {
@@ -182,7 +182,7 @@
                 "parent_name": "",
                 "name": "aux_cube_logm(arma::cube &)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
-                "line": 33,
+                "line": 35,
                 "column": 12
             },
             {
@@ -191,7 +191,7 @@
                 "parent_name": "",
                 "name": "aux_halfinv(arma::mat &)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
-                "line": 48,
+                "line": 50,
                 "column": 11
             },
             {
@@ -200,7 +200,7 @@
                 "parent_name": "",
                 "name": "aux_3d_mean(arma::cube &)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
-                "line": 58,
+                "line": 60,
                 "column": 11
             },
             {
@@ -209,7 +209,7 @@
                 "parent_name": "",
                 "name": "aux_3d_transport(arma::mat &, arma::mat &, arma::cube &)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
-                "line": 66,
+                "line": 68,
                 "column": 12
             },
             {
@@ -218,14 +218,32 @@
                 "parent_name": "",
                 "name": "aux_expm(arma::mat &)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
-                "line": 84,
+                "line": 86,
                 "column": 11
+            },
+            {
+                "usr": "c:@F@aux_3d_tan2mani#&$@N@arma@S@Mat>#d#&$@N@arma@S@Cube>#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "aux_3d_tan2mani(arma::mat &, arma::cube &)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
+                "line": 94,
+                "column": 12
+            },
+            {
+                "usr": "c:@F@aux_3d_mani2tan#&$@N@arma@S@Mat>#d#&$@N@arma@S@Cube>#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "aux_3d_mani2tan(arma::mat &, arma::cube &)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/src_auxiliary.cpp",
+                "line": 109,
+                "column": 12
             }
         ]
     },
     {
         "file": "/home/kisung/Desktop/RiemannSPD/src/src_representation.cpp",
-        "file_last_write": 1655739339.0,
+        "file_last_write": 1655771268.0,
         "definitions": [
             {
                 "usr": "c:@F@engine_cmds#$@N@arma@S@Mat>#d#I#",
@@ -233,7 +251,7 @@
                 "parent_name": "",
                 "name": "engine_cmds(arma::mat, int)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_representation.cpp",
-                "line": 15,
+                "line": 16,
                 "column": 11
             },
             {
@@ -242,7 +260,7 @@
                 "parent_name": "",
                 "name": "engine_stress(arma::mat, arma::mat)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_representation.cpp",
-                "line": 28,
+                "line": 29,
                 "column": 8
             },
             {
@@ -251,7 +269,7 @@
                 "parent_name": "",
                 "name": "cpp_representation_cmds(arma::mat &, int)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_representation.cpp",
-                "line": 44,
+                "line": 45,
                 "column": 12
             }
         ]

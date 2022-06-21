@@ -1,4 +1,5 @@
 #include <RcppArmadillo.h>
+#include "riemannian_spd.h"
 
 // ======================================================
 // REPRESENTATION LEARNING
@@ -60,3 +61,4 @@ Rcpp::List cpp_representation_cmds(arma::mat &pdist, int ndim){
   output["stress"] = stress;
   return(output);
 }
+

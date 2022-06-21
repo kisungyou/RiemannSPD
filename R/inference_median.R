@@ -44,7 +44,7 @@ spd.median <- function(spd, geometry, ...){
   
   # geometry check
   geom_avail = RiemannSPD::spd.geometry("spd.median")
-  if (!(par_geom%*%geom_avail)){
+  if (!(par_geom%in%geom_avail)){
     stop(paste0("* spd.median : the provided geometry '",par_geom,"' is not currently available."))
   }
   

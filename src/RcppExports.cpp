@@ -79,6 +79,30 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// aux_3d_tan2mani
+arma::cube aux_3d_tan2mani(arma::mat& Cref, arma::cube& tan3d);
+RcppExport SEXP _RiemannSPD_aux_3d_tan2mani(SEXP CrefSEXP, SEXP tan3dSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type Cref(CrefSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type tan3d(tan3dSEXP);
+    rcpp_result_gen = Rcpp::wrap(aux_3d_tan2mani(Cref, tan3d));
+    return rcpp_result_gen;
+END_RCPP
+}
+// aux_3d_mani2tan
+arma::cube aux_3d_mani2tan(arma::mat& Cref, arma::cube& data3d);
+RcppExport SEXP _RiemannSPD_aux_3d_mani2tan(SEXP CrefSEXP, SEXP data3dSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat& >::type Cref(CrefSEXP);
+    Rcpp::traits::input_parameter< arma::cube& >::type data3d(data3dSEXP);
+    rcpp_result_gen = Rcpp::wrap(aux_3d_mani2tan(Cref, data3d));
+    return rcpp_result_gen;
+END_RCPP
+}
 // cpp_representation_cmds
 Rcpp::List cpp_representation_cmds(arma::mat& pdist, int ndim);
 RcppExport SEXP _RiemannSPD_cpp_representation_cmds(SEXP pdistSEXP, SEXP ndimSEXP) {
@@ -154,6 +178,8 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RiemannSPD_aux_3d_mean", (DL_FUNC) &_RiemannSPD_aux_3d_mean, 1},
     {"_RiemannSPD_aux_3d_transport", (DL_FUNC) &_RiemannSPD_aux_3d_transport, 3},
     {"_RiemannSPD_aux_expm", (DL_FUNC) &_RiemannSPD_aux_expm, 1},
+    {"_RiemannSPD_aux_3d_tan2mani", (DL_FUNC) &_RiemannSPD_aux_3d_tan2mani, 2},
+    {"_RiemannSPD_aux_3d_mani2tan", (DL_FUNC) &_RiemannSPD_aux_3d_mani2tan, 2},
     {"_RiemannSPD_cpp_representation_cmds", (DL_FUNC) &_RiemannSPD_cpp_representation_cmds, 2},
     {"_RiemannSPD_selector_mean", (DL_FUNC) &_RiemannSPD_selector_mean, 5},
     {"_RiemannSPD_selector_median", (DL_FUNC) &_RiemannSPD_selector_median, 5},

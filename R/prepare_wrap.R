@@ -14,7 +14,7 @@
 #' 
 #' @return a named \code{spd} S3 object containing
 #' \describe{
-#'   \item{data}{a \eqn{(p\times p\times n) 3d array of SPD matrices.}}
+#'   \item{data}{a \eqn{(p\times p\times n)} 3d array of SPD matrices.}
 #'   \item{size}{size of each SPD matrix.}
 #' }
 #' 

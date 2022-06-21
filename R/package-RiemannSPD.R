@@ -9,8 +9,9 @@
 #' @noRd
 #' @import maotai
 #' @import Rdpack
+#' @importFrom Riemann rmvnorm
 #' @importFrom utils packageVersion getFromNamespace
-#' @importFrom stats as.dist
+#' @importFrom stats as.dist cov runif rnorm
 #' @importFrom Rcpp evalCpp
 #' @useDynLib RiemannSPD
 NULL

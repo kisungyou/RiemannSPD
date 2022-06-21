@@ -7,7 +7,7 @@
 spd.cmds(spd, geometry, ndim = 2)
 }
 \arguments{
-\item{spd}{a S3 \code{"spd"} class for \eqn{N} SPD matrices.}
+\item{spd}{a S3 \code{"spd"} class for \eqn{N} of \eqn{(p\times p)} SPD matrices.}
 
 \item{geometry}{(case-insensitive) name of supported geometry from \code{spd.geometry("spd.cmds")}.}
 

@@ -1,4 +1,5 @@
 #include <RcppArmadillo.h>
+#include "riemannian_spd.h"
 
 using namespace Rcpp;
 using namespace arma;
@@ -6,14 +7,15 @@ using namespace std;
 
 // ======================================================
 // COLLECTION OF AUXILIARY FUNCTIONS
-// aux_cube_expm    : for each slice of the cube, apply expm
-// aux_cube_logm    : for each slice of the cube, apply logm
-// aux_expm         : exponential map
-// aux_halfinv      : S -> S^{-1/2}
-// aux_3d_mean      : (p,p,N) -> (p,p) taking a mean
-// aux_3d_transport : parallel transport for set of points
+// aux_cube_expm     : for each slice of the cube, apply expm
+// aux_cube_logm     : for each slice of the cube, apply logm
+// aux_expm          : exponential map
+// aux_halfinv       : S -> S^{-1/2}
+// aux_3d_mean       : (p,p,N) -> (p,p) taking a mean
+// aux_3d_transport  : parallel transport for set of points
+// aux_3d_tan2mani   : tangent space to the manifold
+// aux_3d_mani2tan   : manifold to tangent space (HEAVEN!)
 // ======================================================
-
 
 // aux_cube_expm
 // [[Rcpp::export]]
@@ -83,5 +85,36 @@ arma::cube aux_3d_transport(arma::mat &pt_start, arma::mat &pt_end, arma::cube &
 // [[Rcpp::export]]
 arma::mat aux_expm(arma::mat &X){
   arma::mat output = arma::real(arma::expmat_sym(X));
+  return(output);
+}
+
+
+// aux_3d_tan2mani   : tangent space to the manifold
+// [[Rcpp::export]]
+arma::cube aux_3d_tan2mani(arma::mat &Cref, arma::cube &tan3d){
+  // param
+  int p = tan3d.n_rows;
+  int N = tan3d.n_slices;
+  
+  // compute
+  arma::cube output(p,p,N,fill::zeros);
+  for (int n=0; n<N; n++){
+    output.slice(n) = airm_exp(Cref, tan3d.slice(n), 1.0);
+  }
+  return(output);
+}
+
+// aux_tangentialize : given a reference point, tangentialize!
+// [[Rcpp::export]]
+arma::cube aux_3d_mani2tan(arma::mat &Cref, arma::cube &data3d){
+  // param
+  int p = data3d.n_rows;
+  int N = data3d.n_slices;
+  
+  // compute
+  arma::cube output(p,p,N,fill::zeros);
+  for (int n=0; n<N; n++){
+    output.slice(n) = airm_log(Cref, data3d.slice(n));
+  }
   return(output);
 }

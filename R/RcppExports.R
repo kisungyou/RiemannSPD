@@ -25,6 +25,14 @@ aux_expm <- function(X) {
     .Call('_RiemannSPD_aux_expm', PACKAGE = 'RiemannSPD', X)
 }
 
+aux_3d_tan2mani <- function(Cref, tan3d) {
+    .Call('_RiemannSPD_aux_3d_tan2mani', PACKAGE = 'RiemannSPD', Cref, tan3d)
+}
+
+aux_3d_mani2tan <- function(Cref, data3d) {
+    .Call('_RiemannSPD_aux_3d_mani2tan', PACKAGE = 'RiemannSPD', Cref, data3d)
+}
+
 cpp_representation_cmds <- function(pdist, ndim) {
     .Call('_RiemannSPD_cpp_representation_cmds', PACKAGE = 'RiemannSPD', pdist, ndim)
 }
