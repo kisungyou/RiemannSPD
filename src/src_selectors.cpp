@@ -7,9 +7,9 @@ using namespace std;
 
 // =============================================================================
 // COLLECTION OF SELECTORS
-// (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat
-// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm
-// (3) MEDIAN :       lerm, chol, euclid,             sqrtm
+// (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl
+// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat
+// (3) MEDIAN :       lerm, chol, euclid,     , jbld, sqrtm, bhat
 // =============================================================================
 
 // (1) DIST --------------------------------------------------------------------
@@ -25,12 +25,14 @@ double selector_dist(arma::mat x, arma::mat y, std::string geom){
     output = arma::norm(x-y,"fro");
   } else if (geom=="wass"){
     output = wass_dist(x,y);
-  } else if (geom=="logdet"){
+  } else if (geom=="jbld"){
     output = jbld_dist(x,y);
   } else if (geom=="sqrtm"){
     output = sqrtm_dist(x,y);
   } else if (geom=="bhat"){
     output = bhat_dist(x,y);
+  } else if (geom=="kl"){
+    output = kl_dist(x,y);
   } else {
     std::string err = "* RiemannSPD : distance measure under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -56,6 +58,8 @@ Rcpp::List selector_mean(arma::cube &data, arma::vec &weight, int maxiter, doubl
     output = jbld_mean(data, weight, maxiter, abstol);
   } else if (geom=="sqrtm"){
     output = sqrtm_mean(data, weight);
+  } else if (geom=="bhat"){
+    output = bhat_mean(data, weight, maxiter, abstol);
   } else {
     std::string err = "* RiemannSPD : Frechet mean computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -76,6 +80,10 @@ Rcpp::List selector_median(arma::cube &data, arma::vec &weight, int maxiter, dou
     output = lerm_median(data, weight, maxiter, abstol);
   } else if (geom=="sqrtm"){
     output = sqrtm_median(data, weight, maxiter, abstol);
+  } else if (geom=="jbld"){
+    output = jbld_median(data, weight, maxiter, abstol);
+  } else if (geom=="bhat"){
+    output = bhat_median(data, weight, maxiter, abstol);
   } else {
     std::string err = "* RiemannSPD : Frechet median computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -93,7 +101,15 @@ arma::mat src_pdist(arma::cube &data, std::string geometry){
   
   // compute
   arma::mat output(N,N,fill::zeros);
-  if (geometry=="bhat"){           // special case : BHAT
+  if (geometry=="kl"){
+    for (int i=0; i<N; i++){
+      for (int j=0; j<N; j++){
+        if (i!=j){
+          output(i,j) = kl_dist(data.slice(i), data.slice(j));
+        }
+      }
+    }
+  } else if (geometry=="bhat"){           // special case : BHAT
     arma::vec data_det(N,fill::zeros);
     for (int n=0; n<N; n++){
       data_det(n) = arma::det(data.slice(n));

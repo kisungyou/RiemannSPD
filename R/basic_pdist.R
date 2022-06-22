@@ -1,19 +1,12 @@
 #' Pairwise distance
 #' 
 #' Given a collection of SPD matrices \eqn{X_1, \ldots, X_N}, compute all 
-#' pairwise distances under the designated geometry. Please see the following carefully;\describe{
-#' \item{Note 1. \code{geometry="logdet"}}{
-#' Since the square root of the Jensen-Bregman Log-Determinant divergence is 
-#' metric, we return the square root values instead of the original divergences 
-#' to be consistent with other \emph{metrics}.
-#' }
-#' }
+#' pairwise distances under the designated geometry. 
 #' 
 #' @param spd a S3 \code{"spd"} class for \eqn{N} of \eqn{(p\times p)} SPD matrices.
 #' @param geometry (case-insensitive) name of supported geometry from \code{spd.geometry("spd.pdist")}.
-#' @param as.dist logical; if \code{TRUE}, it returns \code{dist} object, else it returns a symmetric matrix. (default: \code{FALSE}).
 #' 
-#' @return a S3 \code{dist} object or \eqn{(N\times N)} symmetric matrix of pairwise distances according to \code{as.dist} parameter.
+#' @return an \eqn{(N\times N)} matrix of pairwise distances.
 #' 
 #' @examples 
 #' ## toy data
@@ -37,15 +30,14 @@
 #' 
 #' @concept basic
 #' @export
-spd.pdist <- function(spd, geometry, as.dist=FALSE){
+spd.pdist <- function(spd, geometry){
   #------------------------------------------
   # PREP
   if (!check_spdobj(spd)){
     stop("* spd.pdist : 'spd' is not a valid object of 'spd' class.")
   }
   par_geom = tolower(geometry)
-  par_dist = as.logical(as.dist)
-  
+
   # geometry check
   geom_avail = RiemannSPD::spd.geometry("spd.pdist")
   if (!(par_geom%in%geom_avail)){
@@ -55,12 +47,18 @@ spd.pdist <- function(spd, geometry, as.dist=FALSE){
   #------------------------------------------
   # COMPUTE
   output = src_pdist(spd$data, par_geom)
+  return(output)
   
-  #------------------------------------------
-  # RETURN
-  if (par_dist){
-    return(stats::as.dist(output))
-  } else {
-    return(output)
-  }
 }
+
+
+# # personal example
+# gen2obj = spd.gen2class(n1=5, n2=5)
+# spd_obj = gen2obj$spd     # 'spd' class object
+# geom_list = spd.geometry("spd.pdist")
+# 
+# par(mfrow=c(3,3), pty="s")
+# for (i in 1:9){
+#   run_obj = spd.pdist(spd_obj, geom_list[i])
+#   image(run_obj, main=geom_list[i], xaxt="n", yaxt="n")
+# }

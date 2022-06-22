@@ -33,6 +33,10 @@ spd.kmedoids <- function(spd, geometry, k=2){
     if (!check_spdobj(spd)){
       stop("* spd.kmedoids : 'spd' is not a valid object of 'spd' class.")
     }
+    asymlist = spd.geometry.asymmetric()
+    if (par_geom%in%asymlist){
+      stop(paste0("* spd.kmedoids : '",geometry,"' is an asymmetric measure. Please consider using the others." ))
+    }
     distobj = stats::as.dist(src_pdist(spd$data, par_geom))
   }
   

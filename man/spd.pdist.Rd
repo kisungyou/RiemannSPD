@@ -4,27 +4,19 @@
 \alias{spd.pdist}
 \title{Pairwise distance}
 \usage{
-spd.pdist(spd, geometry, as.dist = FALSE)
+spd.pdist(spd, geometry)
 }
 \arguments{
 \item{spd}{a S3 \code{"spd"} class for \eqn{N} of \eqn{(p\times p)} SPD matrices.}
 
 \item{geometry}{(case-insensitive) name of supported geometry from \code{spd.geometry("spd.pdist")}.}
-
-\item{as.dist}{logical; if \code{TRUE}, it returns \code{dist} object, else it returns a symmetric matrix. (default: \code{FALSE}).}
 }
 \value{
-a S3 \code{dist} object or \eqn{(N\times N)} symmetric matrix of pairwise distances according to \code{as.dist} parameter.
+an \eqn{(N\times N)} matrix of pairwise distances.
 }
 \description{
 Given a collection of SPD matrices \eqn{X_1, \ldots, X_N}, compute all 
-pairwise distances under the designated geometry. Please see the following carefully;\describe{
-\item{Note 1. \code{geometry="logdet"}}{
-Since the square root of the Jensen-Bregman Log-Determinant divergence is 
-metric, we return the square root values instead of the original divergences 
-to be consistent with other \emph{metrics}.
-}
-}
+pairwise distances under the designated geometry.
 }
 \examples{
 ## toy data

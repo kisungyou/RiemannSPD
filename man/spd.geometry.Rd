@@ -24,9 +24,10 @@ this is description.
 \item{\code{"euclid"}}{Euclidean}
 \item{\code{"jbld"}}{(\emph{Jensen-Bregman Log-Determinant divergence}) -  
 jensen-bregman log-determinant devivergence. also called as S-divergence from 
-Sra. when used for distance computation, its square root is returned. Mean 
+Sra. Mean 
 computation by Chebbi & Moakher. Originally by Cherian 2011. See burgeoning-033.
 }
+\item{\code{"kl"}}{(\emph{Kullback-Leibler Divergence}) - }
 \item{\code{"lerm"}}{(\emph{Log-Euclidean Riemannian Metric}) - }
 \item{\code{"sqrtm"}}{(\emph{Matrix Square Root}) - It was proposed in 
 \insertCite{dryden_2009_NonEuclideanStatisticsCovariance;textual}{RiemannSPD} without 

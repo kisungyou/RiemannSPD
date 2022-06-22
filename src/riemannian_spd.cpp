@@ -378,7 +378,7 @@ Rcpp::List chol_median(arma::cube data, arma::vec weight, int maxiter, double ab
 double jbld_dist(arma::mat x, arma::mat y){
   std::complex<double> term2 = arma::log_det(x*y);
   double J = arma::log_det_sympd((x+y)/2.0) - 0.5*term2.real();
-  return(std::sqrt(J));
+  return(J);
 }
 
 Rcpp::List jbld_mean(arma::cube data, arma::vec weight, int maxiter, double abstol){
@@ -417,11 +417,9 @@ Rcpp::List jbld_mean(arma::cube data, arma::vec weight, int maxiter, double abst
   
   
   // compute the variation
-  double dist2mean = 0.0;
   double out_variation = 0.0;
   for (int n=0; n<N; n++){
-    dist2mean = jbld_dist(mu_old, data.slice(n));
-    out_variation += (dist2mean*dist2mean)*weight(n);
+    out_variation += jbld_dist(mu_old, data.slice(n))*weight(n);
   }
   
   // wrap & return
@@ -502,4 +500,184 @@ Rcpp::List sqrtm_median(arma::cube data, arma::vec weight, int maxiter, double a
   output["median"] = median_output;
   output["variation"] = out_variation;
   return(output);
+}
+
+
+Rcpp::List bhat_mean(arma::cube data, arma::vec weight, int maxiter, double abstol){
+  // prep
+  int p = data.n_rows;
+  int N = data.n_slices;
+  
+  // stopping criterion
+  double stop_inc  = 10000.0;
+  int stop_counter = 0;
+  
+  // initialization
+  // Chebbi & Moaker : their arithmetic mean is enough
+  arma::mat mu_old = arma::mean(data, 2);
+  arma::mat mu_new(p,p,fill::zeros);
+  arma::mat tmp_fixed(p,p,fill::zeros);
+  
+  // iterate
+  while (stop_inc > abstol){
+    
+    tmp_fixed.fill(0.0);
+    for (int n=0; n<N; n++){
+      tmp_fixed += weight(n)* arma::inv_sympd((data.slice(n)+mu_old)/2.0);
+    }
+    mu_new = arma::inv_sympd(tmp_fixed);
+    
+    // update
+    stop_inc = arma::norm(mu_old-mu_new,"fro");
+    mu_old   = mu_new;
+    
+    stop_counter += 1;
+    if (stop_counter >= maxiter){
+      break;
+    }
+  }
+  
+  // compute the variation
+  double out_variation = 0.0;
+  for (int n=0; n<N; n++){
+    out_variation += bhat_dist(mu_old, data.slice(n))*weight(n);
+  }
+  
+  // wrap & return
+  Rcpp::List output;
+  output["mean"] = mu_old;
+  output["variation"] = out_variation;
+  return(output);
+}
+
+Rcpp::List jbld_median(arma::cube data, arma::vec weight, int maxiter, double abstol){
+  // prep
+  int p = data.n_rows;
+  int N = data.n_slices;
+  
+  // stopping criterion
+  double stop_inc  = 10000.0;
+  int stop_counter = 0;
+  double small_num = 100.0*arma::datum::eps;
+  
+  // initialize
+  arma::mat mu_old = arma::mean(data, 2);
+  arma::mat mu_new(p,p,fill::zeros);
+  
+  double tmp_term1 = 0.0;
+  arma::mat tmp_term2(p,p,fill::zeros);
+  
+  arma::vec dist_to_dat(N,fill::zeros);
+  
+  // iterate
+  while (stop_inc > abstol){
+    // compute distances
+    for (int n=0; n<N; n++){
+      dist_to_dat(n) = std::sqrt(jbld_dist(mu_old, data.slice(n)));
+    }
+    if (arma::any(dist_to_dat < small_num)){
+      break;
+    }
+    
+    // intermediate quantities
+    tmp_term1 = 0.0;
+    for (int n=0; n<N; n++){
+      tmp_term1 += weight(n)/dist_to_dat(n);
+    }
+    
+    tmp_term2.fill(0.0);
+    for (int n=0; n<N; n++){
+      tmp_term2 += (weight(n)/dist_to_dat(n))*arma::inv_sympd((mu_old+data.slice(n))/2.0);
+    }
+    
+    // update
+    mu_new   = tmp_term1*arma::inv_sympd(tmp_term2);
+    stop_inc = arma::norm(mu_old-mu_new,"fro");
+    mu_old   = mu_new;
+    
+    stop_counter += 1;
+    if (stop_counter >= maxiter){
+      break;
+    }
+  }
+  
+  // compute the variation
+  double out_variation = 0.0;
+  for (int n=0; n<N; n++){
+    out_variation += std::sqrt(jbld_dist(mu_old, data.slice(n)))*weight(n);
+  }
+  
+  // wrap & return
+  Rcpp::List output;
+  output["median"] = mu_old;
+  output["variation"] = out_variation;
+  return(output);
+}
+
+Rcpp::List bhat_median(arma::cube data, arma::vec weight, int maxiter, double abstol){
+  // prep
+  int p = data.n_rows;
+  int N = data.n_slices;
+  
+  // stopping criterion
+  double stop_inc  = 10000.0;
+  int stop_counter = 0;
+  double small_num = 100.0*arma::datum::eps;
+  
+  // initialize
+  arma::mat mu_old = arma::mean(data, 2);
+  arma::mat mu_new(p,p,fill::zeros);
+  
+  double tmp_term1 = 0.0;
+  arma::mat tmp_term2(p,p,fill::zeros);
+  
+  arma::vec dist_to_dat(N,fill::zeros);
+  
+  // iterate
+  while (stop_inc > abstol){
+    // compute distances
+    for (int n=0; n<N; n++){
+      dist_to_dat(n) = std::sqrt(jbld_dist(mu_old, data.slice(n)));
+    }
+    if (arma::any(dist_to_dat < small_num)){
+      break;
+    }
+    
+    // intermediate quantities
+    tmp_term1 = 0.0;
+    for (int n=0; n<N; n++){
+      tmp_term1 += weight(n)/dist_to_dat(n);
+    }
+    
+    tmp_term2.fill(0.0);
+    for (int n=0; n<N; n++){
+      tmp_term2 += (weight(n)/dist_to_dat(n))*arma::inv_sympd((mu_old+data.slice(n))/2.0);
+    }
+    
+    // update
+    mu_new   = tmp_term1*arma::inv_sympd(tmp_term2);
+    stop_inc = arma::norm(mu_old-mu_new,"fro");
+    mu_old   = mu_new;
+    
+    stop_counter += 1;
+    if (stop_counter >= maxiter){
+      break;
+    }
+  }
+  
+  // compute the variation
+  double out_variation = 0.0;
+  for (int n=0; n<N; n++){
+    out_variation += std::sqrt(bhat_dist(mu_old, data.slice(n)))*weight(n);
+  }
+  
+  // wrap & return
+  Rcpp::List output;
+  output["median"] = mu_old;
+  output["variation"] = out_variation;
+  return(output);
+}
+
+double kl_dist(arma::mat x, arma::mat y){
+  return((arma::log_det_sympd(y) - arma::log_det_sympd(x) - static_cast<double>(x.n_rows) + arma::trace(arma::solve(y,x)))*0.5);
 }
