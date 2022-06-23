@@ -34,7 +34,7 @@
 spd.geometry <- function(fname){
   # MODIFY ---------------------------------------------------------------------
   vec_dists  = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl"))
-  vec_mean   = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat"))
+  vec_mean   = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl"))
   vec_median = sort(c("lerm","chol","euclid","jbld","sqrtm","bhat"))
   
   # vec_all = union(union(vec_dists, vec_mean), vec_median)

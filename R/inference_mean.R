@@ -68,15 +68,12 @@ spd.mean <- function(spd, geometry, ...){
 # }
 # spdobj = spd.wrap(dat3d)
 # 
-# spd.geometry("spd.mean")
+# all_geom = spd.geometry("spd.mean") # until KL, there are 9 methods.
+# all_case = length(all_geom)
 # 
-# meanAIRM = spd.mean(spdobj, "airm")
-# meanLERM = spd.mean(spdobj, "lerm")
-# meanEUCL = spd.mean(spdobj, "euclid")
-# meanLDET = spd.mean(spdobj, "logdet")
-# 
-# par(mfrow=c(2,2), pty="s")
-# image(meanAIRM$mean, main=paste0("AIRM:",round(meanAIRM$variation,3)))
-# image(meanLERM$mean, main=paste0("LERM:",round(meanLERM$variation,3)))
-# image(meanEUCL$mean, main=paste0("EUCL:",round(meanEUCL$variation,3)))
-# image(meanLDET$mean, main=paste0("LDET:",round(meanLDET$variation,3)))
+# x11()
+# par(mfrow=c(3,3), pty="s")
+# for (i in 1:9){
+#   image(spd.mean(spdobj, geometry=all_geom[i])$mean, xaxt='n', yaxt='n', 
+#         main=all_geom[i])
+# }

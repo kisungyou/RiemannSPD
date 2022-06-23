@@ -681,3 +681,34 @@ Rcpp::List bhat_median(arma::cube data, arma::vec weight, int maxiter, double ab
 double kl_dist(arma::mat x, arma::mat y){
   return((arma::log_det_sympd(y) - arma::log_det_sympd(x) - static_cast<double>(x.n_rows) + arma::trace(arma::solve(y,x)))*0.5);
 }
+
+
+Rcpp::List kl_mean(arma::cube data, arma::vec weight, int maxiter, double abstol){
+  // prep
+  int p = data.n_rows;
+  int N = data.n_slices;
+  
+  int trash_it = maxiter;
+  double trash_tol = abstol;
+  
+  // compute inverses & their weighted sum 
+  arma::mat inv_wsum(p,p,fill::zeros);
+  for (int n=0; n<N; n++){
+    inv_wsum += weight(n)*arma::inv_sympd(data.slice(n));
+  }
+  arma::mat kl_mean = arma::inv_sympd(inv_wsum);
+
+  
+  
+  // compute the variation
+  double out_variation = 0.0;
+  for (int n=0; n<N; n++){
+    out_variation += weight(n)*kl_dist(kl_mean, data.slice(n));
+  }
+  
+  // wrap & return
+  Rcpp::List output;
+  output["mean"] = kl_mean;
+  output["variation"] = out_variation;
+  return(output);
+}

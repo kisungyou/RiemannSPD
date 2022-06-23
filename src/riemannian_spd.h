@@ -48,7 +48,8 @@ Rcpp::List bhat_mean(arma::cube data, arma::vec weight, int maxiter, double abst
 Rcpp::List bhat_median(arma::cube data, arma::vec weight, int maxiter, double abstol);
 
 // Geometry : kl (Kullback-Leibler divergence)
-double kl_dist(arma::mat x, arma::mat y);
+double     kl_dist(arma::mat x, arma::mat y);
+Rcpp::List kl_mean(arma::cube data, arma::vec weight, int maxiter, double abstol); // equals to harmonic mean
 
 
 #endif

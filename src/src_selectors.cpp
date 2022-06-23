@@ -8,7 +8,7 @@ using namespace std;
 // =============================================================================
 // COLLECTION OF SELECTORS
 // (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl
-// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat
+// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl
 // (3) MEDIAN :       lerm, chol, euclid,     , jbld, sqrtm, bhat
 // =============================================================================
 
@@ -60,6 +60,8 @@ Rcpp::List selector_mean(arma::cube &data, arma::vec &weight, int maxiter, doubl
     output = sqrtm_mean(data, weight);
   } else if (geom=="bhat"){
     output = bhat_mean(data, weight, maxiter, abstol);
+  } else if (geom=="kl"){
+    output = kl_mean(data, weight, maxiter, abstol);
   } else {
     std::string err = "* RiemannSPD : Frechet mean computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
