@@ -18,6 +18,7 @@
 #' }
 #' \item{\code{"kl"}}{(\emph{Kullback-Leibler Divergence}) - }
 #' \item{\code{"lerm"}}{(\emph{Log-Euclidean Riemannian Metric}) - }
+#' \item{\code{"pross"}}{(\emph{Procrustes Size-and-Shape Metric}) - }
 #' \item{\code{"sqrtm"}}{(\emph{Matrix Square Root}) - It was proposed in 
 #' \insertCite{dryden_2009_NonEuclideanStatisticsCovariance;textual}{RiemannSPD} without 
 #' much discussion at rigor. This geometry considers square root of matrices 
@@ -33,8 +34,8 @@
 #' @export
 spd.geometry <- function(fname){
   # MODIFY ---------------------------------------------------------------------
-  vec_dists  = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl"))
-  vec_mean   = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl"))
+  vec_dists  = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl","pross"))
+  vec_mean   = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl","pross"))
   vec_median = sort(c("lerm","chol","euclid","jbld","sqrtm","bhat"))
   
   # vec_all = union(union(vec_dists, vec_mean), vec_median)

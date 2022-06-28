@@ -72,8 +72,17 @@ spd.mean <- function(spd, geometry, ...){
 # all_case = length(all_geom)
 # 
 # x11()
-# par(mfrow=c(3,3), pty="s")
-# for (i in 1:9){
-#   image(spd.mean(spdobj, geometry=all_geom[i])$mean, xaxt='n', yaxt='n', 
+# par(mfrow=c(4,3), pty="s")
+# for (i in 1:10){
+#   image(spd.mean(spdobj, geometry=all_geom[i])$mean, xaxt='n', yaxt='n',
 #         main=all_geom[i])
 # }
+# # compare pross with estSS from 'shapes' (works)
+# dat3d = array(0,c(5,5,10))
+# for (i in 1:10){
+#   dat3d[,,i] = cov(matrix(rnorm(20*5), ncol=5))
+# }
+# spdobj = spd.wrap(dat3d)
+# 
+# est1 = spd.mean(spdobj, geometry="pross", eps=1e-12, maxiter=200)$mean
+# est2 = shapes::estSS(dat3d)

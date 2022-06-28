@@ -57,8 +57,8 @@ spd.pdist <- function(spd, geometry){
 # spd_obj = gen2obj$spd     # 'spd' class object
 # geom_list = spd.geometry("spd.pdist")
 # 
-# par(mfrow=c(3,3), pty="s")
-# for (i in 1:9){
+# par(mfrow=c(3,4), pty="s")
+# for (i in 1:10){
 #   run_obj = spd.pdist(spd_obj, geom_list[i])
 #   image(run_obj, main=geom_list[i], xaxt="n", yaxt="n")
 # }

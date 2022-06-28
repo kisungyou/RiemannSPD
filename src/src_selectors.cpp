@@ -7,8 +7,8 @@ using namespace std;
 
 // =============================================================================
 // COLLECTION OF SELECTORS
-// (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl
-// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl
+// (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross
+// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross
 // (3) MEDIAN :       lerm, chol, euclid,     , jbld, sqrtm, bhat
 // =============================================================================
 
@@ -33,6 +33,8 @@ double selector_dist(arma::mat x, arma::mat y, std::string geom){
     output = bhat_dist(x,y);
   } else if (geom=="kl"){
     output = kl_dist(x,y);
+  } else if (geom=="pross"){
+    output = pross_dist(x,y);
   } else {
     std::string err = "* RiemannSPD : distance measure under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -62,6 +64,8 @@ Rcpp::List selector_mean(arma::cube &data, arma::vec &weight, int maxiter, doubl
     output = bhat_mean(data, weight, maxiter, abstol);
   } else if (geom=="kl"){
     output = kl_mean(data, weight, maxiter, abstol);
+  } else if (geom=="pross"){
+    output = pross_mean(data, weight, maxiter, abstol);
   } else {
     std::string err = "* RiemannSPD : Frechet mean computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -157,6 +161,17 @@ arma::mat src_pdist(arma::cube &data, std::string geometry){
         output(j,i) = output(i,j);
       }
     }
+  } else if (geometry=="pross"){   // special case : SQRTM
+    arma::cube data_trf(p,p,N,fill::zeros);
+    for (int n=0; n<N; n++){
+      data_trf.slice(n) = arma::chol(data.slice(n), "lower");
+    }
+    for (int i=0; i<(N-1); i++){
+      for (int j=(i+1); j<N; j++){
+        output(i,j) = pross_distchol(data_trf.slice(i), data_trf.slice(j));
+        output(j,i) = output(i,j);
+      }
+    }
   } else {                         // general cases
     for (int i=0; i<(N-1); i++){
       for (int j=(i+1); j<N; j++){
@@ -239,6 +254,22 @@ arma::mat src_pdist2(arma::cube &data1, arma::cube &data2, std::string geometry)
       for (int n=0; n<N; n++){
         mat_avg     = (data1.slice(m)+data2.slice(n))/2.0;
         output(m,n) = (arma::log_det_sympd(mat_avg) - 0.5*std::log(vec_det1(m)*vec_det2(n)))*0.5;
+      }
+    }
+  } else if (geometry=="pross"){ // special case : PROSS
+    arma::cube trf1(p,p,M,fill::zeros);
+    arma::cube trf2(p,p,N,fill::zeros);
+    
+    for (int m=0; m<M; m++){
+      trf1.slice(m) = arma::chol(data1.slice(m), "lower");
+    }
+    for (int n=0; n<N; n++){
+      trf2.slice(n) = arma::chol(data2.slice(n), "lower");
+    }
+    
+    for (int m=0; m<M; m++){
+      for (int n=0; n<N; n++){
+        output(m,n) = pross_distchol(trf1.slice(m), trf2.slice(n));
       }
     }
   } else {                       // general cases

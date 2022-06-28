@@ -29,6 +29,7 @@ computation by Chebbi & Moakher. Originally by Cherian 2011. See burgeoning-033.
 }
 \item{\code{"kl"}}{(\emph{Kullback-Leibler Divergence}) - }
 \item{\code{"lerm"}}{(\emph{Log-Euclidean Riemannian Metric}) - }
+\item{\code{"pross"}}{(\emph{Procrustes Size-and-Shape Metric}) - }
 \item{\code{"sqrtm"}}{(\emph{Matrix Square Root}) - It was proposed in 
 \insertCite{dryden_2009_NonEuclideanStatisticsCovariance;textual}{RiemannSPD} without 
 much discussion at rigor. This geometry considers square root of matrices 

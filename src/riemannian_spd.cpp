@@ -90,8 +90,8 @@ double lerm_dist(arma::mat x, arma::mat y){
   return(arma::norm(xx-yy,"fro"));
 }
 double chol_dist(arma::mat x, arma::mat y){
-  arma::mat cx = arma::chol(x);
-  arma::mat cy = arma::chol(y);
+  arma::mat cx = arma::chol(x, "lower");
+  arma::mat cy = arma::chol(y, "lower");
   return(arma::norm(cx-cy,"fro"));
 }
 
@@ -687,10 +687,7 @@ Rcpp::List kl_mean(arma::cube data, arma::vec weight, int maxiter, double abstol
   // prep
   int p = data.n_rows;
   int N = data.n_slices;
-  
-  int trash_it = maxiter;
-  double trash_tol = abstol;
-  
+
   // compute inverses & their weighted sum 
   arma::mat inv_wsum(p,p,fill::zeros);
   for (int n=0; n<N; n++){
@@ -709,6 +706,110 @@ Rcpp::List kl_mean(arma::cube data, arma::vec weight, int maxiter, double abstol
   // wrap & return
   Rcpp::List output;
   output["mean"] = kl_mean;
+  output["variation"] = out_variation;
+  return(output);
+}
+
+double pross_dist(arma::mat x, arma::mat y){
+  arma::mat L1  = arma::chol(x, "lower");
+  arma::mat L2  = arma::chol(y, "lower");
+  arma::mat L12 = L1.t()*L2;
+  
+  arma::mat svdW;
+  arma::vec svds;
+  arma::mat svdU;
+  
+  arma::svd(svdW, svds, svdU, L12);
+  arma::mat Rhat = svdU*svdW.t();
+  
+  double output = arma::norm(L1 - L2*Rhat, "fro");
+  return(output);
+}
+double pross_distchol(arma::mat L1, arma::mat L2){
+  arma::mat L12 = L1.t()*L2;
+  
+  arma::mat svdW;
+  arma::vec svds;
+  arma::mat svdU;
+  
+  arma::svd(svdW, svds, svdU, L12);
+  arma::mat Rhat = svdU*svdW.t();
+  
+  double output = arma::norm(L1 - L2*Rhat, "fro");
+  return(output);
+}
+
+
+Rcpp::List pross_mean(arma::cube data, arma::vec weight, int maxiter, double abstol){
+  // params
+  int p = data.n_rows;
+  int N = data.n_slices;
+  
+  // lower-triangular cholesky
+  arma::cube chol3d(p,p,N,fill::zeros);
+  for (int n=0; n<N; n++){
+    chol3d.slice(n) = arma::chol(data.slice(n), "lower");
+  }
+  
+  // stopping criterion
+  double stop_inc  = 10000.0;
+  int stop_counter = 0;
+  
+  // prep
+  arma::mat mu_old = arma::mean(chol3d, 2);
+  arma::mat mu_tmp(p,p,fill::zeros);
+  arma::mat mu_new(p,p,fill::zeros);
+  arma::cube stackR(p,p,N,fill::zeros);
+  
+  arma::mat svdW;
+  arma::vec svds;
+  arma::mat svdU;
+  
+  // iterate
+  while (stop_inc > abstol){
+    // update rotation matrices
+    for (int n=0; n<N; n++){
+      svdW.reset();
+      svds.reset();
+      svdU.reset();
+      
+      arma::svd(svdW, svds, svdU, (mu_old.t()*chol3d.slice(n)));
+      stackR.slice(n) = svdU*svdW.t();
+    }
+    
+    // update the delta
+    mu_tmp.fill(0.0);
+    mu_new.fill(0.0);
+    for (int n=0; n<N; n++){
+      mu_tmp += weight(n)*(stackR.slice(n)*chol3d.slice(n));
+    }
+    mu_new = arma::chol(mu_tmp*mu_tmp.t(), "lower");
+
+    // updating information
+    stop_inc = arma::norm(mu_old - mu_new, "fro");
+    mu_old   = mu_new;
+    
+    stop_counter += 1;
+    if (stop_counter >= maxiter){
+      Rcpp::Rcout << "iteration " << stop_counter << " broken." << std::endl;
+      break;
+    }
+    Rcpp::Rcout << "iteration " << stop_counter << " completed." << std::endl;
+  }
+  arma::mat output_mean = mu_old*mu_old.t();
+  
+  // variation
+  // compute the variation
+  double dval = 0.0;
+  double out_variation = 0.0;
+  for (int n=0; n<N; n++){
+    dval = pross_distchol(mu_old, chol3d.slice(n));
+    out_variation += weight(n)*(dval*dval);
+  }
+  
+  // wrap & return - don't forget to take the multiplication
+  Rcpp::List output;
+  output["mean"] = output_mean;
   output["variation"] = out_variation;
   return(output);
 }

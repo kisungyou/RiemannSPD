@@ -51,5 +51,10 @@ Rcpp::List bhat_median(arma::cube data, arma::vec weight, int maxiter, double ab
 double     kl_dist(arma::mat x, arma::mat y);
 Rcpp::List kl_mean(arma::cube data, arma::vec weight, int maxiter, double abstol); // equals to harmonic mean
 
+// Geometry : pross (Procrustes Size-and-Shape metric)
+double     pross_dist(arma::mat x, arma::mat y);
+double     pross_distchol(arma::mat L1, arma::mat L2);  // lower triangular values
+Rcpp::List pross_mean(arma::cube data, arma::vec weight, int maxiter, double abstol); // equals to harmonic mean
+
 
 #endif
