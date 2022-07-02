@@ -5,6 +5,7 @@
 
 // General Algorithm
 arma::mat general_weiszfeld(arma::cube data3d, arma::vec weight, int maxiter, double abstol);
+arma::mat general_mat2mean(arma::mat x, arma::mat y); // from Bhatia
 
 // Geometry : airm (Affine-Invariant Riemannian Metric)
 arma::mat  airm_exp(arma::mat x, arma::mat eta, double t);
@@ -55,6 +56,10 @@ Rcpp::List kl_mean(arma::cube data, arma::vec weight, int maxiter, double abstol
 double     pross_dist(arma::mat x, arma::mat y);
 double     pross_distchol(arma::mat L1, arma::mat L2);  // lower triangular values
 Rcpp::List pross_mean(arma::cube data, arma::vec weight, int maxiter, double abstol); // equals to harmonic mean
+
+// Geometry : jeff (Jeffreys' Divergence)
+double     jeff_dist(arma::mat x, arma::mat y);
+Rcpp::List jeff_mean(arma::cube data, arma::vec weight, int maxiter, double abstol);
 
 
 #endif

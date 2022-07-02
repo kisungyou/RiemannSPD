@@ -58,6 +58,11 @@ arma::mat general_weiszfeld(arma::cube data3d, arma::vec weight, int maxiter, do
   return(y_old);
 }
 
+arma::mat general_mat2mean(arma::mat x, arma::mat y){
+  return(x*arma::real(arma::sqrtmat(arma::solve(x,y))));
+}
+
+
 
 arma::mat airm_exp(arma::mat x, arma::mat eta, double t){
   arma::mat teta = t*eta;
@@ -810,6 +815,44 @@ Rcpp::List pross_mean(arma::cube data, arma::vec weight, int maxiter, double abs
   // wrap & return - don't forget to take the multiplication
   Rcpp::List output;
   output["mean"] = output_mean;
+  output["variation"] = out_variation;
+  return(output);
+}
+
+double jeff_dist(arma::mat x, arma::mat y){
+  double output = kl_dist(x,y) + kl_dist(y,x);
+  return(output);
+}
+
+Rcpp::List jeff_mean(arma::cube data, arma::vec weight, int maxiter, double abstol){
+  // params
+  int p = data.n_rows;
+  int N = data.n_slices;
+  
+  // compute 1 : compute an arithmetic mean
+  arma::mat meanA(p,p,fill::zeros);
+  for (int n=0; n<N; n++){
+    meanA += weight(n)*data.slice(n);
+  }
+  // compute 2 : compute a  harmonic mean
+  arma::mat tmp_h(p,p,fill::zeros);
+  for (int n=0; n<N; n++){
+    tmp_h += weight(n)*arma::inv_sympd(data.slice(n));
+  }
+  arma::mat meanH = arma::inv_sympd(tmp_h);
+  
+  // compute : the geometric mean
+  arma::mat mean_output = general_mat2mean(meanA, meanH);
+  
+  // compute : the variation
+  double out_variation = 0.0;
+  for (int n=0; n<N; n++){
+    out_variation += weight(n)*jeff_dist(data.slice(n), mean_output);
+  }
+  
+  // wrap & return - don't forget to take the multiplication
+  Rcpp::List output;
+  output["mean"] = mean_output;
   output["variation"] = out_variation;
   return(output);
 }

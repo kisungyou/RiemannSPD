@@ -7,8 +7,8 @@ using namespace std;
 
 // =============================================================================
 // COLLECTION OF SELECTORS
-// (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross
-// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross
+// (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross, jeff
+// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross, jeff
 // (3) MEDIAN :       lerm, chol, euclid,     , jbld, sqrtm, bhat
 // =============================================================================
 
@@ -35,6 +35,8 @@ double selector_dist(arma::mat x, arma::mat y, std::string geom){
     output = kl_dist(x,y);
   } else if (geom=="pross"){
     output = pross_dist(x,y);
+  } else if (geom=="jeff"){
+    output = jeff_dist(x,y);
   } else {
     std::string err = "* RiemannSPD : distance measure under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -66,6 +68,8 @@ Rcpp::List selector_mean(arma::cube &data, arma::vec &weight, int maxiter, doubl
     output = kl_mean(data, weight, maxiter, abstol);
   } else if (geom=="pross"){
     output = pross_mean(data, weight, maxiter, abstol);
+  } else if (geom=="jeff"){
+    output = jeff_mean(data, weight, maxiter, abstol);
   } else {
     std::string err = "* RiemannSPD : Frechet mean computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -169,6 +173,21 @@ arma::mat src_pdist(arma::cube &data, std::string geometry){
     for (int i=0; i<(N-1); i++){
       for (int j=(i+1); j<N; j++){
         output(i,j) = pross_distchol(data_trf.slice(i), data_trf.slice(j));
+        output(j,i) = output(i,j);
+      }
+    }
+  } else if (geometry=="jeff"){    // special case : Jeffreys' Divergence
+    arma::vec  rec_logdet(N,fill::zeros);
+    arma::cube rec_inv(p,p,N,fill::zeros);
+    
+    for (int n=0; n<N; n++){
+      rec_logdet(n) = arma::log_det_sympd(data.slice(n));
+      rec_inv.slice(n) = arma::inv_sympd(data.slice(n));
+    }
+    
+    for (int i=0; i<(N-1); i++){
+      for (int j=(i+1); j<N; j++){
+        output(i,j) = (arma::trace(rec_inv.slice(i)*data.slice(j)) + arma::trace(rec_inv.slice(j)*data.slice(i)) - 2.0*static_cast<double>(p))*0.5;
         output(j,i) = output(i,j);
       }
     }

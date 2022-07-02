@@ -16,6 +16,7 @@
 #' Sra. Mean 
 #' computation by Chebbi & Moakher. Originally by Cherian 2011. See burgeoning-033.
 #' }
+#' \item{\code{"jeff"}}{(\emph{Jeffreys' Divergence}) - symmetrize KL by KL(A,B)+KL(B,A). Jeffreys' in 1946. Mean in Moakher 2006.}
 #' \item{\code{"kl"}}{(\emph{Kullback-Leibler Divergence}) - }
 #' \item{\code{"lerm"}}{(\emph{Log-Euclidean Riemannian Metric}) - }
 #' \item{\code{"pross"}}{(\emph{Procrustes Size-and-Shape Metric}) - }
@@ -34,7 +35,7 @@
 #' @export
 spd.geometry <- function(fname){
   # MODIFY ---------------------------------------------------------------------
-  vec_dists  = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl","pross"))
+  vec_dists  = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl","pross","jeff"))
   vec_mean   = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl","pross"))
   vec_median = sort(c("lerm","chol","euclid","jbld","sqrtm","bhat"))
   
