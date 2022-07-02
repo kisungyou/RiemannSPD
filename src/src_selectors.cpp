@@ -7,9 +7,9 @@ using namespace std;
 
 // =============================================================================
 // COLLECTION OF SELECTORS
-// (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross, jeff
-// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross, jeff
-// (3) MEDIAN :       lerm, chol, euclid,     , jbld, sqrtm, bhat
+// (1) DIST   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross, jeff, csd, hell
+// (2) MEAN   : airm, lerm, chol, euclid, wass, jbld, sqrtm, bhat, kl, pross, jeff, csd
+// (3) MEDIAN :       lerm, chol, euclid,     , jbld, sqrtm, bhat,                  csd
 // =============================================================================
 
 // (1) DIST --------------------------------------------------------------------
@@ -37,6 +37,10 @@ double selector_dist(arma::mat x, arma::mat y, std::string geom){
     output = pross_dist(x,y);
   } else if (geom=="jeff"){
     output = jeff_dist(x,y);
+  } else if (geom=="csd"){
+    output = csd_dist(x,y);
+  } else if (geom=="hell"){
+    output = hell_dist(x,y);
   } else {
     std::string err = "* RiemannSPD : distance measure under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -70,6 +74,8 @@ Rcpp::List selector_mean(arma::cube &data, arma::vec &weight, int maxiter, doubl
     output = pross_mean(data, weight, maxiter, abstol);
   } else if (geom=="jeff"){
     output = jeff_mean(data, weight, maxiter, abstol);
+  } else if (geom=="csd"){
+    output = csd_mean(data, weight, maxiter, abstol);
   } else {
     std::string err = "* RiemannSPD : Frechet mean computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -94,6 +100,8 @@ Rcpp::List selector_median(arma::cube &data, arma::vec &weight, int maxiter, dou
     output = jbld_median(data, weight, maxiter, abstol);
   } else if (geom=="bhat"){
     output = bhat_median(data, weight, maxiter, abstol);
+  } else if (geom=="csd"){
+    output = csd_median(data, weight, maxiter, abstol);
   } else {
     std::string err = "* RiemannSPD : Frechet median computation under '" + geom + "' geometry is not currently available.";
     Rcpp::stop(err);
@@ -176,6 +184,18 @@ arma::mat src_pdist(arma::cube &data, std::string geometry){
         output(j,i) = output(i,j);
       }
     }
+  } else if (geometry=="csd"){     // special case : Cauchy-Schwarz Divergence
+    arma::vec rec_logdet2(N,fill::zeros);
+    for (int n=0; n<N; n++){
+      rec_logdet2(n) = arma::log_det_sympd(2.0*data.slice(n));
+    }
+    for (int i=0; i<(N-1); i++){
+      for (int j=(i+1); j<N; j++){
+        output(i,j) = (0.5*arma::log_det_sympd(data.slice(i)+data.slice(j))) - (0.25*(rec_logdet2(i) + rec_logdet2(j)));
+        output(j,i) = output(i,j);
+      }
+    }
+    
   } else if (geometry=="jeff"){    // special case : Jeffreys' Divergence
     arma::vec  rec_logdet(N,fill::zeros);
     arma::cube rec_inv(p,p,N,fill::zeros);

@@ -21,7 +21,9 @@ this is description.
 \item{\code{"airm"}}{(\emph{Affine-Invariant Riemannian Metric}) - .}
 \item{\code{"bhat"}}{Bhattacharyya distance. not a metric.}
 \item{\code{"chol"}}{Cholesky. See \insertCite{wang_2004_ConstrainedVariationalPrinciple}{RiemannSPD}.}
+\item{\code{"csd"}}{ (\emph{Cauchy-Schwarz Divergence}) - Jenssen 2005 and Kampa 2011. }
 \item{\code{"euclid"}}{Euclidean}
+\item{\code{"hell"}}{Hellinger Distance - metric. Hellinger 1909. Bounded.}
 \item{\code{"jbld"}}{(\emph{Jensen-Bregman Log-Determinant divergence}) -  
 jensen-bregman log-determinant devivergence. also called as S-divergence from 
 Sra. Mean 

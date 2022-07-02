@@ -10,7 +10,9 @@
 #' \item{\code{"airm"}}{(\emph{Affine-Invariant Riemannian Metric}) - .}
 #' \item{\code{"bhat"}}{Bhattacharyya distance. not a metric.}
 #' \item{\code{"chol"}}{Cholesky. See \insertCite{wang_2004_ConstrainedVariationalPrinciple}{RiemannSPD}.}
+#' \item{\code{"csd"}}{ (\emph{Cauchy-Schwarz Divergence}) - Jenssen 2005 and Kampa 2011. }
 #' \item{\code{"euclid"}}{Euclidean}
+#' \item{\code{"hell"}}{Hellinger Distance - metric. Hellinger 1909. Bounded.}
 #' \item{\code{"jbld"}}{(\emph{Jensen-Bregman Log-Determinant divergence}) -  
 #' jensen-bregman log-determinant devivergence. also called as S-divergence from 
 #' Sra. Mean 
@@ -35,9 +37,9 @@
 #' @export
 spd.geometry <- function(fname){
   # MODIFY ---------------------------------------------------------------------
-  vec_dists  = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl","pross","jeff"))
-  vec_mean   = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl","pross"))
-  vec_median = sort(c("lerm","chol","euclid","jbld","sqrtm","bhat"))
+  vec_dists  = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl","pross","jeff","csd","hell"))
+  vec_mean   = sort(c("airm","lerm","chol","euclid","wass","jbld","sqrtm","bhat","kl","pross","jeff","csd"))
+  vec_median = sort(c("lerm","chol","euclid","jbld","sqrtm","bhat","csd"))
   
   # vec_all = union(union(vec_dists, vec_mean), vec_median)
   # print(sort(vec_all))

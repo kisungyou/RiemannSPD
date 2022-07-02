@@ -61,5 +61,13 @@ Rcpp::List pross_mean(arma::cube data, arma::vec weight, int maxiter, double abs
 double     jeff_dist(arma::mat x, arma::mat y);
 Rcpp::List jeff_mean(arma::cube data, arma::vec weight, int maxiter, double abstol);
 
+// Geometry : csd (Cauchy-Schwarz Divergence)
+double     csd_dist(arma::mat x, arma::mat y);
+Rcpp::List csd_mean(arma::cube data, arma::vec weight, int maxiter, double abstol);
+Rcpp::List csd_median(arma::cube data, arma::vec weight, int maxiter, double abstol);
+
+// Geometry : hell (Hellinger Distance)
+double hell_dist(arma::mat x, arma::mat y);
+
 
 #endif
