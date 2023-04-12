@@ -1,0 +1,13 @@
+Package: RiemannSPD
+Type: Package
+Title: Learning with Data on the SPD manifold
+Version: 0.1.0
+Authors@R: c(person("Kisung", "You", role = c("aut", "cre"), email = "kisungyou@outlook.com",comment=c(ORCID="0000-0002-8584-459X")))
+Description: More about what it does (maybe more than one
+      line).
+License: MIT + file LICENSE
+Encoding: UTF-8
+RoxygenNote: 7.2.3
+RdMacros: Rdpack
+Imports: Rcpp (>= 1.0.10), Rdpack, Riemann, maotai (>= 0.2.5), stats, utils
+LinkingTo: Rcpp, RcppArmadillo

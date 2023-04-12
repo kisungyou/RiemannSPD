@@ -1,0 +1,29 @@
+{
+    "args": [
+        "-std=gnu++14",
+        "-I/usr/share/R/include",
+        "-DNDEBUG",
+        "-fopenmp",
+        "-fpic",
+        "-ffile-prefix-map=/build/r-base-LhKvHL/r-base-4.2.3=.",
+        "-fstack-protector-strong",
+        "-D_FORTIFY_SOURCE=2",
+        "-I/home/kisung/R/x86_64-pc-linux-gnu-library/4.2/Rcpp/include",
+        "-I/home/kisung/R/x86_64-pc-linux-gnu-library/4.2/RcppArmadillo/include",
+        "-DEIGEN_DONT_VECTORIZE",
+        "-I/usr/lib/llvm-14/lib/clang/14.0.0/include",
+        "-I/usr/include/c++/11",
+        "-I/usr/include/x86_64-linux-gnu/c++/11",
+        "-I/usr/include/c++/11/backward",
+        "-I/usr/lib/gcc/x86_64-linux-gnu/11/include",
+        "-I/usr/local/include",
+        "-I/usr/include/x86_64-linux-gnu",
+        "-I/usr/include"
+    ],
+    "pch": "RcppArmadillo",
+    "is_cpp": true,
+    "hash": "168124299116812366001681236600",
+    "compiler": "9513565613913083351",
+    "rversion": "4.2.3",
+    "dbversion": 4
+}

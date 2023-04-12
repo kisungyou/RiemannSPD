@@ -1,0 +1,31 @@
+#' Sliced-Wasserstein SPD
+#' 
+#' 
+#' 
+#' @concept ot
+#' @export
+spd.swdist <- function(spd1, spd2, p=2, ...){
+  # CHECK : EXPLICIT
+  if (!check_spdobj(spd1)){
+    stop("* spd.swdist : 'spd1' is not a valid spd-class object.")
+  }
+  if (!check_spdobj(spd2)){
+    stop("* spd.swdist : 'spd2' is not a valid spd-class object.")
+  }
+  if (spd1$size[1]!=spd2$size[1]){
+    stop("* spd.swdist : 'spd1' and 'spd2' are not of matching size.")
+  }
+  par_p = max(1, as.double(p))
+  
+  # CHECK : IMPLICIT
+  params = list(...)
+  pnames = names(params)
+  
+  if ("nproj"%in%pnames){
+    par_nproj = max(1, round(params$nproj))
+  } else {
+    par_nproj = 496
+  }
+  
+  #
+}
