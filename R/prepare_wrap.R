@@ -20,6 +20,15 @@
 #'   \item{corr}{a logical for correlation-valued objects.}
 #' }
 #' 
+#' @examples
+#' \donttest{
+#' # LOAD THE DATA
+#' data(ERP)
+#' 
+#' # WRAP THE DATA
+#' spdobj <- spd.wrap(ERP$spd)
+#' }
+#' 
 #' @concept prepare
 #' @export
 spd.wrap <- function(input, corr=FALSE){
@@ -114,16 +123,7 @@ check_spd <- function(x, id){
   if (cond1&&cond2&&cond3){
     return(x)
   } else {
-    remainder = (id%%10)
-    if (remainder==1){
-      stop(paste0(" spd.wrap : ",id,"st object is not a valid SPD object."))
-    } else if (remainder==2){
-      stop(paste0(" spd.wrap : ",id,"nd object is not a valid SPD object."))
-    } else if (remainder==3){
-      stop(paste0(" spd.wrap : ",id,"rd object is not a valid SPD object."))
-    } else {
-      stop(paste0(" spd.wrap : ",id,"th object is not a valid SPD object."))
-    }
+    stop(paste0(" spd.wrap : the ",id,"st/nd/th object is not a valid SPD object."))
   }
 }
 #' @keywords internal

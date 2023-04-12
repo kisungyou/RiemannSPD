@@ -34,7 +34,7 @@
     },
     {
         "file": "/home/kisung/Desktop/RiemannSPD/src/src_ot.cpp",
-        "file_last_write": 1681263657.0,
+        "file_last_write": 1681315768.0,
         "definitions": [
             {
                 "usr": "c:@F@cpp_swdist_projector#I#",
@@ -53,7 +53,7 @@
                 "name": "cpp_swdist_projection(arma::cube &, arma::cube &)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_ot.cpp",
                 "line": 32,
-                "column": 11,
+                "column": 24,
                 "hidden": false
             }
         ],

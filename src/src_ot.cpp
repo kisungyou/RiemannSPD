@@ -29,21 +29,29 @@ arma::mat cpp_swdist_projector(int p){
   return(output);
 }
 // [[Rcpp::export]]
-arma::mat cpp_swdist_projection(arma::cube & LogX, arma::cube & LogY){
+arma::field<arma::vec> cpp_swdist_projection(arma::cube & LogX, arma::cube & LogY){
   // parameters
   int N = LogX.n_slices;
+  int M = LogY.n_slices;
   int p = LogX.n_rows;
-  arma::mat output(N,2,fill::zeros);
+  
+  arma::vec projX(N,fill::zeros);
+  arma::vec projY(M,fill::zeros);
   
   // create a projector matrix
   arma::mat A = cpp_swdist_projector(p);
   
-  // iterate
+  // iterate for X
   for (int n=0; n<N; n++){
-    output(n,0) = arma::trace(A*LogX.slice(n));
-    output(n,1) = arma::trace(A*LogY.slice(n));
+    projX(n) = arma::trace(A*LogX.slice(n));
+  }
+  for (int m=0; m<M; m++){
+    projY(m) = arma::trace(A*LogY.slice(m));
   }
   
   // return
+  arma::field<arma::vec> output(2);
+  output(0) = projX;
+  output(1) = projY;
   return(output);
 }

@@ -30,4 +30,14 @@ of matrix manifold. It is defined as
 where the rank condition means it is strictly positive definite. In the \pkg{RiemannSPD}, 
 we have a very strict policy to work with PD matrices only.
 }
+\examples{
+\donttest{
+# LOAD THE DATA
+data(ERP)
+
+# WRAP THE DATA
+spdobj <- spd.wrap(ERP$spd)
+}
+
+}
 \concept{prepare}

@@ -11,3 +11,6 @@ RoxygenNote: 7.2.3
 RdMacros: Rdpack
 Imports: Rcpp (>= 1.0.10), Rdpack, Riemann, maotai (>= 0.2.5), stats, utils
 LinkingTo: Rcpp, RcppArmadillo
+Depends: 
+    R (>= 2.10)
+LazyData: true

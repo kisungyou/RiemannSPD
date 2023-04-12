@@ -34,7 +34,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // cpp_swdist_projection
-arma::mat cpp_swdist_projection(arma::cube& LogX, arma::cube& LogY);
+arma::field<arma::vec> cpp_swdist_projection(arma::cube& LogX, arma::cube& LogY);
 RcppExport SEXP _RiemannSPD_cpp_swdist_projection(SEXP LogXSEXP, SEXP LogYSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;

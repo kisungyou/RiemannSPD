@@ -6,7 +6,56 @@
 \usage{
 spd.swdist(spd1, spd2, p = 2, ...)
 }
+\arguments{
+\item{spd1}{asdf}
+
+\item{spd2}{adsf}
+
+\item{p}{asdf}
+
+\item{...}{kk}
+}
+\value{
+a named list containing\describe{
+\item{distance}{Sliced-Wasserstein distance of order \eqn{p}.}
+}
+}
 \description{
 Sliced-Wasserstein Distance
+}
+\examples{
+\dontrun{
+# LOAD THE DATA
+data(ERP)
+
+# WRAP THE SPD MATRICES PER LABEL
+spdlist <- list()
+for (i in 1:4){
+  spdlist[[i]] <- spd.wrap(ERP$spd[,,which(ERP$lab==levels(ERP$lab)[i])])
+}
+
+# COMPUTE THE PAIRWISE DISTANCE
+pdmat <- array(0,c(4,4))
+for (i in 1:3){
+  for (j in (i+1):4){
+    pdmat[i,j] <- pdmat[j,i] <- spd.swdist(spdlist[[i]], spdlist[[j]])$distance
+  }
+}
+colnames(pdmat) = levels(ERP$lab)
+rownames(pdmat) = levels(ERP$lab)  
+
+# VISUALIZE
+opar <- par(no.readonly=TRUE)
+par(pty="s")
+image(1:4, 1:4, pdmat, axes = FALSE, 
+      xlab="", ylab="", main="Sliced-Wasserstein Distance")
+axis(1, 1:4, levels(ERP$lab), cex.axis = 1, las=3)
+axis(2, 1:4, levels(ERP$lab), cex.axis = 1, las=1)
+par(opar)
+}
+
+}
+\references{
+\insertRef{bonet_2023_SlicedWassersteinSymmetricPositive}{RiemannSPD}
 }
 \concept{ot}
