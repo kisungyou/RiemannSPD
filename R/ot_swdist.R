@@ -11,7 +11,7 @@
 #' }
 #' 
 #' @examples
-#' \dontrun{
+#' if (interactive()){
 #' # LOAD THE DATA
 #' data(ERP)
 #' 

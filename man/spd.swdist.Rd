@@ -24,7 +24,7 @@ a named list containing\describe{
 Sliced-Wasserstein Distance
 }
 \examples{
-\dontrun{
+if (interactive()){
 # LOAD THE DATA
 data(ERP)
 
