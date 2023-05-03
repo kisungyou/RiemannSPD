@@ -1,7 +1,7 @@
 [
     {
         "file": "/home/kisung/Desktop/RiemannSPD/src/casket_spd.cpp",
-        "file_last_write": 1681258600.0,
+        "file_last_write": 1683076494.0,
         "definitions": [
             {
                 "usr": "c:@F@aux_cube_logm#&$@N@arma@S@Cube>#d#",
@@ -22,19 +22,39 @@
                 "line": 21,
                 "column": 12,
                 "hidden": false
+            },
+            {
+                "usr": "c:@F@aux_weiszfeld#$@N@arma@S@Cube>#d#$@N@arma@S@Col>#d#I#d#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "aux_weiszfeld(arma::cube, arma::vec, int, double)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/casket_spd.cpp",
+                "line": 32,
+                "column": 11,
+                "hidden": false
+            },
+            {
+                "usr": "c:@F@aux_mat2mean#$@N@arma@S@Mat>#d#S0_#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "aux_mat2mean(arma::mat, arma::mat)",
+                "file": "/home/kisung/Desktop/RiemannSPD/src/casket_spd.cpp",
+                "line": 84,
+                "column": 11,
+                "hidden": false
             }
         ],
         "hidden": false
     },
     {
         "file": "/home/kisung/Desktop/RiemannSPD/src/casket_spd.h",
-        "file_last_write": 1681258607.0,
+        "file_last_write": 1683076469.0,
         "definitions": [],
         "hidden": false
     },
     {
         "file": "/home/kisung/Desktop/RiemannSPD/src/src_ot.cpp",
-        "file_last_write": 1681263657.0,
+        "file_last_write": 1683075518.0,
         "definitions": [
             {
                 "usr": "c:@F@cpp_swdist_projector#I#",
@@ -53,7 +73,7 @@
                 "name": "cpp_swdist_projection(arma::cube &, arma::cube &)",
                 "file": "/home/kisung/Desktop/RiemannSPD/src/src_ot.cpp",
                 "line": 32,
-                "column": 11,
+                "column": 24,
                 "hidden": false
             }
         ],
